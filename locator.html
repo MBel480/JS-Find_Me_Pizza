@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+
+		<link rel="stylesheet" href="locator.css">
+
+	</head>
+
+	<body>
+
+		<div id="map"></div>
+
+			<script>
+
+				function initMap() {
+
+					/*============================
+					Map centered on Washington, D.C.
+					with main map controls active
+					==============================*/
+
+					var centerdMapLocation,
+						sanFrancisco = {lat: 37.773972, lng: -122.431297},
+						mapDiv = document.getElementById('map');
+
+					var mainMap = new google.maps.Map(mapDiv, {
+
+					center: {lat: 38.889931, lng: -77.009003},
+
+					zoom: 8,
+
+					zoomControl: true,
+
+					mapTypeControl: true,
+
+					scaleControl: true,
+
+					streetViewControl: true,
+
+					mapTypeId: google.maps.MapTypeId.HYBRID
+		
+					});
+
+					/*============================
+					Center map using geolocation 
+					(if supported by browser)
+					==============================*/
+
+					if(navigator.geolocation) {
+						
+						navigator.geolocation.getCurrentPosition(function(location) {
+
+							presentLocation = new google.maps.LatLng(position.coords.latitude,
+								position.coords.longitude);
+
+							infoWindow.setPosition(presentLocation);
+
+							mainMap.setCenter(presentLocation);
+						})
+
+					}else {
+
+						alert("Geolocation not supported by browser; centering on San Francisco ");
+
+						mainMap.setCenter(sanFrancisco);
+
+					}
+
+				}
+
+			</script>
+
+			<script src='locator.js?onload=initialize'></script>
+
+			<script asyn defer
+				src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+			></script>
+
+	</body>
+
+</html>
