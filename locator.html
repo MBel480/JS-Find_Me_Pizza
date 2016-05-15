@@ -43,7 +43,7 @@
 		
 					};
 
-					var mainMap = new google.maps.Map(mapDiv, mapOptions);
+					mainMap = new google.maps.Map(mapDiv, mapOptions);
 
 					/*============================
 					Center map using geolocation 
@@ -52,36 +52,36 @@
 					getCurrentLocation();
 				}
 
-					function getCurrentLocation() {
+				function getCurrentLocation() {
 
-						if (navigator.geolocation) {
+					if (navigator.geolocation) {
 
-							navigator.geolocation.getCurrentPosition(showPosition);
+						navigator.geolocation.getCurrentPosition(showPosition);
 
-						}else {
+					}else {
 
-						
-							alert("Geolocation not supported by browser; centering map on San Francisco ");
+					
+						alert("Geolocation not supported by browser; centering map on San Francisco ");
 
-							mainMap.setCenter(sanFrancisco);
+						mainMap.setCenter(sanFrancisco);
 
-						}
 					}
+				}
 
-					function showPosition(position) {
+				function showPosition(position) {
 
-						var presentLocation = new google.maps.LatLng(position.coords.latitude,
-							position.coords.longitude);
+					var presentLocation = new google.maps.LatLng(position.coords.latitude,
+						position.coords.longitude);
 
-						mainMap.setCenter(presentLocation);
-					}
+					mainMap.setCenter(presentLocation);
+				}
 
 			</script>
 
 			<script src='locator.js?onload=initialize'></script>
 
 			<script asyn defer
-				src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+				src="https://maps.googleapis.com/maps/api/js?ey=AIzaSyAmrQjhfl2vtd_xRE8VQdF-C5z-SncAev0&callback=initMap"
 			></script>
 
 	</body>
