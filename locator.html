@@ -11,6 +11,19 @@
 
 		<div id="map"></div>
 
+		<div id="latLng">
+			<form action="">
+				<fieldset>
+
+					<label>Latitude:</label>
+					<input type="text" id="lat"/>
+					<label>Longitude:</label>
+					<input type="text" id="lng"/>
+
+				</fieldset>
+			</form>
+		</div>
+
 			<script>
 
 				var mainMap;
@@ -44,6 +57,22 @@
 					};
 
 					mainMap = new google.maps.Map(mapDiv, mapOptions);
+
+					/*============================
+					Map right-click event displays
+					latitude and longitude to user
+					==============================*/
+
+					google.maps.event.addListener(mainMap, "rightclick", function(event) {
+
+						var latitude = event.latLng.lat(),
+							longitude = event.latLng.lng(),
+							latOutput = document.getElementById("lat"),
+							lngOutput = document.getElementById("lng");
+
+						latOutput.value = latitude;
+						lngOutput.value = longitude;
+					})
 
 					/*============================
 					Center map using geolocation 
