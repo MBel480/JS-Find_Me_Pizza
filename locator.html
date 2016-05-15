@@ -49,6 +49,8 @@
 					Center map using geolocation 
 					(if supported by browser)
 					==============================*/
+					getCurrentLocation();
+				}
 
 					function getCurrentLocation() {
 
@@ -59,8 +61,7 @@
 						}else {
 
 						
-							alert("Geolocation not supported by browser; 
-								centering map on San Francisco ");
+							alert("Geolocation not supported by browser; centering map on San Francisco ");
 
 							mainMap.setCenter(sanFrancisco);
 
@@ -74,8 +75,6 @@
 
 						mainMap.setCenter(presentLocation);
 					}
-
-				}
 
 			</script>
 
