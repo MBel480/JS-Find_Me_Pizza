@@ -13,6 +13,8 @@
 
 			<script>
 
+				var mainMap;
+
 				function initMap() {
 
 					/*============================
@@ -20,11 +22,10 @@
 					with main map controls active
 					==============================*/
 
-					var centerdMapLocation,
-						sanFrancisco = {lat: 37.773972, lng: -122.431297},
+					var sanFrancisco = {lat: 37.773972, lng: -122.431297},
 						mapDiv = document.getElementById('map');
 
-					var mainMap = new google.maps.Map(mapDiv, {
+					var mapOptions = {
 
 					center: {lat: 38.889931, lng: -77.009003},
 
@@ -40,31 +41,38 @@
 
 					mapTypeId: google.maps.MapTypeId.HYBRID
 		
-					});
+					};
+
+					var mainMap = new google.maps.Map(mapDiv, mapOptions);
 
 					/*============================
 					Center map using geolocation 
 					(if supported by browser)
 					==============================*/
 
-					if(navigator.geolocation) {
+					function getCurrentLocation() {
+
+						if (navigator.geolocation) {
+
+							navigator.geolocation.getCurrentPosition(showPosition);
+
+						}else {
+
 						
-						navigator.geolocation.getCurrentPosition(function(location) {
+							alert("Geolocation not supported by browser; 
+								centering map on San Francisco ");
 
-							presentLocation = new google.maps.LatLng(position.coords.latitude,
-								position.coords.longitude);
+							mainMap.setCenter(sanFrancisco);
 
-							infoWindow.setPosition(presentLocation);
+						}
+					}
 
-							mainMap.setCenter(presentLocation);
-						})
+					function showPosition(position) {
 
-					}else {
+						var presentLocation = new google.maps.LatLng(position.coords.latitude,
+							position.coords.longitude);
 
-						alert("Geolocation not supported by browser; centering on San Francisco ");
-
-						mainMap.setCenter(sanFrancisco);
-
+						mainMap.setCenter(presentLocation);
 					}
 
 				}
