@@ -15,10 +15,14 @@
 			<form action="">
 				<fieldset>
 
-					<label>Latitude:</label>
+					<label>Map Latitude:</label>
 					<input type="text" id="lat"/>
-					<label>Longitude:</label>
+					<label>Map Longitude:</label>
 					<input type="text" id="lng"/>
+					<label>Marker Latitude:</label>
+					<input type="text" id="marklat">
+					<label>Marker Longitude:</label>
+					<input type="text" id="marklng">
 
 				</fieldset>
 			</form>
@@ -26,7 +30,8 @@
 
 			<script>
 
-				var mainMap;
+				var mainMap,
+					mapMarkers = [];
 
 				function initMap() {
 
@@ -72,7 +77,28 @@
 
 						latOutput.value = latitude;
 						lngOutput.value = longitude;
-					})
+
+					});
+
+					locationMarker = new google.maps.Marker({
+							map: mainMap,
+							draggable: true,
+							position: mainMap.getCenter()
+						});
+						
+
+					google.maps.event.addListener(locationMarker,"click", function(event) {
+						document.getElementById("marklat").value = event.latLng.lat();
+						document.getElementById("marklng").value = event.latLng.lng();
+						location.position = {lat: event.latLng.lat(), lng: event.latLng.lng()};
+						locationMarker.setMap(map);
+						mapMarkers.push(locationMarker);
+					});
+
+					google.maps.event.addListener(locationMarker, "dragend", function(event) {
+						document.getElementById("marklat").value = locationMarker.getPosition().lat();
+						document.getElementById("marklng").value = locationMarker.getPosition().lng();
+					});
 
 					/*============================
 					Center map using geolocation 
@@ -103,6 +129,16 @@
 						position.coords.longitude);
 
 					mainMap.setCenter(presentLocation);
+				}
+
+				function removeMapMarkers() {
+					var i = 0;
+
+					for(i = 0; i < mapMarkers.length; i++) {
+
+						mapMarkers[i].setMap(null);
+
+					}
 				}
 
 			</script>
