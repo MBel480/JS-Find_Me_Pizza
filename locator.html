@@ -40,7 +40,9 @@
 			<script>
 
 				var mainMap,
-					mapMarkers = [];
+					mapMarkers = [],
+					searchRadii = [],
+					coordDecimals = 7;
 
 				function initMap() {
 
@@ -76,8 +78,8 @@
 					document.getElementById("lng").value = mapOptions['center']['lng'];
 
 					/*============================
-					Map right-click event displays
-					latitude and longitude to user
+					Map center change displays
+					latitude and longitude
 					==============================*/
 
 					google.maps.event.addListener(mainMap, "center_changed", function() {
@@ -87,8 +89,8 @@
 						var latOutput = document.getElementById("lat"),
 						lngOutput = document.getElementById("lng");
 
-						latOutput.value = mainMap.getCenter().lat().toFixed(6);
-						lngOutput.value = mainMap.getCenter().lng().toFixed(6);
+						latOutput.value = mainMap.getCenter().lat().toFixed(coordDecimals);
+						lngOutput.value = mainMap.getCenter().lng().toFixed(coordDecimals);
 
 					});
 
@@ -100,13 +102,50 @@
 
 					locationMarker.setMap(mainMap);
 					mapMarkers.push(locationMarker);
+
+					/*============================
+					Marker position change displays
+					latitude and longitude
+					==============================*/
 					
 					document.getElementById("marklat").value = mapOptions['center']['lat'];
 					document.getElementById("marklng").value = mapOptions['center']['lng'];	
 
-					google.maps.event.addListener(locationMarker, "drag", function(event) {
-						document.getElementById("marklat").value = locationMarker.getPosition().lat().toFixed(6);
-						document.getElementById("marklng").value = locationMarker.getPosition().lng().toFixed(6);
+					google.maps.event.addListener(locationMarker, "drag", function() {
+
+						document.getElementById("marklat").value = 
+						locationMarker.getPosition().lat().toFixed(coordDecimals);
+
+						document.getElementById("marklng").value = 
+						locationMarker.getPosition().lng().toFixed(coordDecimals);
+
+					});
+
+					/*============================
+					Marker terminal position displays
+					search radius
+					==============================*/
+
+					google.maps.event.addListener(locationMarker, "dragend", function() {
+
+						if (searchRadii.length !== 0) {
+
+							removeFromMap(searchRadii);
+							searchRadii = [];
+
+						}
+
+						var searchRadius = new google.maps.Circle({
+
+							map: mainMap,
+							radius: milesToMeters(document.getElementById("rad_input").value),
+							fillColor: '#AA0000'
+
+						});
+
+						searchRadii.push(searchRadius);
+						searchRadius.bindTo('center', locationMarker, 'position');
+
 					});
 
 					/*============================
@@ -114,7 +153,8 @@
 					(if supported by browser)
 					==============================*/
 					getCurrentLocation();
-				}
+
+				};
 
 				function getCurrentLocation() {
 
@@ -130,7 +170,7 @@
 						mainMap.setCenter(sanFrancisco);
 
 					}
-				}
+				};
 
 				function showPosition(position) {
 
@@ -138,17 +178,24 @@
 						position.coords.longitude);
 
 					mainMap.setCenter(presentLocation);
-				}
+				};
 
-				function removeMapMarkers() {
+				function removeFromMap(itemArray) {
+					
 					var i = 0;
 
-					for(i = 0; i < mapMarkers.length; i++) {
+					for(i = 0; i < itemArray.length; i++) {
 
-						mapMarkers[i].setMap(null);
+						itemArray[i].setMap(null);
 
 					}
-				}
+				};
+
+				function milesToMeters(radius) {
+
+					return radius * 5280 * 0.3048;
+
+				};
 
 			</script>
 
