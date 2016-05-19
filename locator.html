@@ -28,6 +28,15 @@
 			</form>
 		</div>
 
+		<div id="radius">
+			<form action="">
+				<fieldset>
+					<label>Search Radius</label>
+					<input type="text" id="rad_input">
+				</fieldset>
+			</form>
+		</div>
+
 			<script>
 
 				var mainMap,
@@ -63,20 +72,23 @@
 
 					mainMap = new google.maps.Map(mapDiv, mapOptions);
 
+					document.getElementById("lat").value = mapOptions['center']['lat'];
+					document.getElementById("lng").value = mapOptions['center']['lng'];
+
 					/*============================
 					Map right-click event displays
 					latitude and longitude to user
 					==============================*/
 
-					google.maps.event.addListener(mainMap, "rightclick", function(event) {
+					google.maps.event.addListener(mainMap, "center_changed", function() {
 
-						var latitude = event.latLng.lat(),
-							longitude = event.latLng.lng(),
-							latOutput = document.getElementById("lat"),
-							lngOutput = document.getElementById("lng");
+						// var latitude = event.latLng.lat(),
+						// 	longitude = event.latLng.lng(),
+						var latOutput = document.getElementById("lat"),
+						lngOutput = document.getElementById("lng");
 
-						latOutput.value = latitude;
-						lngOutput.value = longitude;
+						latOutput.value = mainMap.getCenter().lat().toFixed(6);
+						lngOutput.value = mainMap.getCenter().lng().toFixed(6);
 
 					});
 
@@ -85,19 +97,16 @@
 							draggable: true,
 							position: mainMap.getCenter()
 						});
-						
 
-					google.maps.event.addListener(locationMarker,"click", function(event) {
-						document.getElementById("marklat").value = event.latLng.lat();
-						document.getElementById("marklng").value = event.latLng.lng();
-						location.position = {lat: event.latLng.lat(), lng: event.latLng.lng()};
-						locationMarker.setMap(map);
-						mapMarkers.push(locationMarker);
-					});
+					locationMarker.setMap(mainMap);
+					mapMarkers.push(locationMarker);
+					
+					document.getElementById("marklat").value = mapOptions['center']['lat'];
+					document.getElementById("marklng").value = mapOptions['center']['lng'];	
 
-					google.maps.event.addListener(locationMarker, "dragend", function(event) {
-						document.getElementById("marklat").value = locationMarker.getPosition().lat();
-						document.getElementById("marklng").value = locationMarker.getPosition().lng();
+					google.maps.event.addListener(locationMarker, "drag", function(event) {
+						document.getElementById("marklat").value = locationMarker.getPosition().lat().toFixed(6);
+						document.getElementById("marklng").value = locationMarker.getPosition().lng().toFixed(6);
 					});
 
 					/*============================
