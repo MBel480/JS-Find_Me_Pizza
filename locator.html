@@ -242,7 +242,7 @@
 						maxLat, minLat,
 						maxLng, minLng,
 						lngCompensate = radiansToDegrees(convertRadius /
-										(earthR * Math.cos(convertLng)));
+										(earthR / Math.cos(convertLng)));
 
 					maxLat = lat + angularDistance;
 
