@@ -40,6 +40,7 @@
 			<script>
 
 				var mainMap,
+					earthR = 6371,  //Mean radius of Earth (km)
 					mapMarkers = [],
 					searchRadii = [],
 					coordDecimals = 7;
@@ -199,8 +200,12 @@
 
 				function greatCircleDistance(lat1, lng1, lat2, lng2) {
 
+					/*Compute great circle distance from center of 
+					  search circle to locations discovered in 
+					  database that fall within search radius bounds 
+					*/
+
 					var coordsArray = Array.prototype.slice.call(arguments),
-						earthR = 6371,
 						convertedCoords,
 						deltaLng,
 						sinProduct,
@@ -222,9 +227,42 @@
 
 				};
 
+				function searchRadiusBounds(radius, lat, lng) {
+
+					/*Expedite location discovery in database by
+					  considering only those points within
+					  the computed search radius bounds.
+					 */
+
+					var convertRadius = milesToMeters(radius),
+						angularDistance = radiansToDegrees(convertRadius / earthR),
+						convertLng = degreesToRadians(lng),
+						maxLat, minLat,
+						maxLng, minLng,
+						lngCompensate = radiansToDegrees(angularDistance /
+										Math.cos(convertLng));
+
+					maxLat = lat + angularDistance;
+
+					minLat = lat - angularDistance;
+
+					maxLng = lng + lngCompensate;
+
+					minLng = lng - lngCompensate;
+
+					return [minLat maxLat minLng maxLng];
+
+				};
+
 				function degreesToRadians(coordinate) {
 
 					return coordinate * Math.PI / 180;
+
+				};
+
+				function radiansToDegrees(coordinate) {
+
+					return coordinate * 180 / Math.PI;
 
 				};
 
