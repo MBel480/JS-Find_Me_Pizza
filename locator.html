@@ -194,7 +194,7 @@
 
 				function milesToMeters(radius) {
 
-					return radius * 5280 * 0.3048;
+					return radius * 5280 * (1200 / 3937);
 
 				};
 
@@ -209,13 +209,13 @@
 						convertedCoords,
 						deltaLng,
 						sinProduct,
-						cosProduct;
+						cosProduct, dist;
 
 					convertedCoords = coordsArray.map(function(num) {
 						return degreesToRadians(num);
 					});
 
-					deltaLng = convertedCoords[3] - convertedCoords[1];
+					deltaLng = Math.cos(convertedCoords[3] - convertedCoords[1]);
 
 					sinProduct = Math.sin(convertedCoords[0]) * 
 								Math.sin(convertedCoords[2]);
@@ -223,7 +223,9 @@
 					cosProduct = Math.cos(convertedCoords[0]) *
 								Math.cos(convertedCoords[2]);
 
-					return Math.acos(sinProduct + cosProduct * deltaLng) * earthR;
+					dist = Math.acos(sinProduct + cosProduct * deltaLng) * earthR;
+
+					return (dist * 1000).toFixed(3);
 
 				};
 
@@ -234,13 +236,13 @@
 					  the computed search radius bounds.
 					 */
 
-					var convertRadius = milesToMeters(radius),
+					var convertRadius = milesToMeters(radius) / 1000,
 						angularDistance = radiansToDegrees(convertRadius / earthR),
 						convertLng = degreesToRadians(lng),
 						maxLat, minLat,
 						maxLng, minLng,
-						lngCompensate = radiansToDegrees(angularDistance /
-										Math.cos(convertLng));
+						lngCompensate = radiansToDegrees(convertRadius /
+										(earthR * Math.cos(convertLng)));
 
 					maxLat = lat + angularDistance;
 
@@ -250,7 +252,7 @@
 
 					minLng = lng - lngCompensate;
 
-					return [minLat maxLat minLng maxLng];
+					return [minLat, maxLat, minLng, maxLng];
 
 				};
 
