@@ -16,13 +16,13 @@
 				<fieldset>
 
 					<label>Map Latitude:</label>
-					<input type="text" id="lat"/>
+					<input readonly type="text" id="lat"/>
 					<label>Map Longitude:</label>
-					<input type="text" id="lng"/>
+					<input readonly type="text" id="lng"/>
 					<label>Marker Latitude:</label>
-					<input type="text" id="marklat">
+					<input readonly type="text" id="marklat">
 					<label>Marker Longitude:</label>
-					<input type="text" id="marklng">
+					<input readonly type="text" id="marklng">
 
 				</fieldset>
 			</form>
@@ -194,6 +194,37 @@
 				function milesToMeters(radius) {
 
 					return radius * 5280 * 0.3048;
+
+				};
+
+				function greatCircleDistance(lat1, lng1, lat2, lng2) {
+
+					var coordsArray = Array.prototype.slice.call(arguments),
+						earthR = 6371,
+						convertedCoords,
+						deltaLng,
+						sinProduct,
+						cosProduct;
+
+					convertedCoords = coordsArray.map(function(num) {
+						return degreesToRadians(num);
+					});
+
+					deltaLng = convertedCoords[3] - convertedCoords[1];
+
+					sinProduct = Math.sin(convertedCoords[0]) * 
+								Math.sin(convertedCoords[2]);
+
+					cosProduct = Math.cos(convertedCoords[0]) *
+								Math.cos(convertedCoords[2]);
+
+					return Math.acos(sinProduct + cosProduct * deltaLng) * earthR;
+
+				};
+
+				function degreesToRadians(coordinate) {
+
+					return coordinate * Math.PI / 180;
 
 				};
 
