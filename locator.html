@@ -304,6 +304,44 @@
 						}
 					}
 
+					xhttpR.onreadystatechange = checkReadiness;
+
+					function checkReadiness() {
+
+						/*
+						
+						 XMLHttpRequest object readyState properties:
+
+						 0: request not initialized
+						 1: server connection established
+						 2: request received
+						 3: processing request
+						 4: request finished and response ready
+
+						 200: status "OK"
+						 404: status "Page not found"
+
+						*/
+
+						if (xhttpR.readyState < 4) {
+
+							return;
+
+						}
+
+						if (xhttpR.readyState !== 200) {
+
+							return;
+
+						}
+
+						if (xhttpR.readyState == 4) {
+
+							response = callback(xhttpR.responseText);
+
+						}
+					}
+
 				};
 
 			</script>
