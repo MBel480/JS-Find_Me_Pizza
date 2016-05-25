@@ -309,7 +309,7 @@
 					function checkReadiness() {
 
 						/*
-						
+
 						 XMLHttpRequest object readyState properties:
 
 						 0: request not initialized
@@ -341,6 +341,11 @@
 
 						}
 					}
+
+					//Send query url to API server
+
+					xhttpR.open('GET', url, true);
+					xhttpR.send('');
 
 				};
 
