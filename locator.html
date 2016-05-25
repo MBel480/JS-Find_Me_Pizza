@@ -43,7 +43,8 @@
 					earthR = 6371,  //Mean radius of Earth (km)
 					mapMarkers = [],
 					searchRadii = [],
-					coordDecimals = 7;
+					coordDecimals = 7,
+					ajaxResponse;
 
 				function initMap() {
 
@@ -265,6 +266,43 @@
 				function radiansToDegrees(coordinate) {
 
 					return coordinate * 180 / Math.PI;
+
+				};
+
+				function ajaxRequest(url, callback) {
+
+					var xhttpR;
+
+					if (typeof XMLHttpRequest !== 'undefined') {
+
+						xhttpR = new XMLHttpRequest();
+
+					}else {
+
+						var actxVersions = ["MSXML2.XmlHttp.5.0",
+											"MSXML2.XmlHttp.4.0",
+											"MSXML2.XmlHttp.3.0",
+											"MSXML2.XmlHttp.2.0",
+											"Microsoft.XmlHttp"
+											];
+
+						var i,
+							actxArrLen = actxVersions.length;
+
+						for (i = 0; i < actxArrLen; i++) {
+
+							try {
+
+								xhttpR = new ActiveXObject(actxVersions[i]);
+								break;
+
+							}catch(error) {
+
+								alert('ActiveX not enabled in this browser; enable ActiveX');
+
+							}
+						}
+					}
 
 				};
 
