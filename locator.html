@@ -32,7 +32,7 @@
 			<form action="">
 				<fieldset>
 					<label>Search Radius</label>
-					<input type="text" id="rad_input">
+					<input type="text" id="rad_input" onpaste="return false">
 				</fieldset>
 			</form>
 		</div>
@@ -346,6 +346,14 @@
 
 					xhttpR.open('GET', url, true);
 					xhttpR.send('');
+
+				};
+
+				function processAjaxResponse(response) {
+
+					response = JSON.parse(response);
+
+					return response.response.data;
 
 				};
 
