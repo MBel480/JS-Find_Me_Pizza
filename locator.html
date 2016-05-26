@@ -5,38 +5,6 @@
 
 		<link rel="stylesheet" href="locator.css">
 		
-		<script language="Javascript">
-
-			function validNumericInput(event) {
-
-				/*
-				validNumericInput restricts search
-				radius input box into accepting
-				only numbers and certain
-				keyboard key actions
-				*/
-
-				//Cross-browser key code extraction method selection
-
-				var key = (event.which) ? event.which : event.keyCode;
-
-					//Numbers 0-9
-				if (key >= 48 && key <= 57   ||
-					//Numbers 0-9 (keypad)
-					key >= 96 && key <= 105  ||
-					//Delete and Back Space keys
-					key === 127 || key === 8 ||
-					//Left and Right arrow keys
-					key === 37  || key === 39) 
-
-					return true;
-
-				return false;
-
-			};
-			
-		</script>
-
 	</head>
 
 	<body>
@@ -389,6 +357,46 @@
 					return response.response.data;
 
 				};
+
+				function validNumericInput(event) {
+
+				/*
+				validNumericInput restricts search
+				radius input box into accepting
+				only numbers and certain
+				keyboard key actions
+				*/
+
+				//Cross-browser key code extraction method selection
+
+				var key = (event.which) ? event.which : event.keyCode;
+
+					//Numbers 0-9
+				if (key >= 48 && key <= 57   ||
+					//Numbers 0-9 (keypad)
+					key >= 96 && key <= 105  ||
+					//Delete and Back Space keys
+					key === 46 || key === 8 ||
+					//Left and Right arrow keys
+					key === 37  || key === 39)  {
+
+					return true;
+					//Period key check (keyboard 110; keypad: 190)
+				}else if (key === 110 || key === 190) {
+
+					//Ensure only one period allowed in input box
+					if ((document.getElementById('rad_input').value)
+						.indexOf('.') === -1) {
+						
+						return true;
+
+					}
+
+				}
+
+				return false;
+
+			};
 
 			</script>
 
