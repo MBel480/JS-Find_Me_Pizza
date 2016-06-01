@@ -378,15 +378,23 @@
 
 					setElementAttributes(table,tableProperties,setAttribute);
 
-					var headerValues = ["Name", "Address", "Suite", "City",
-										"Phone", "Website", "Distance"];
+					var headerValues = {"Name"     : "name", 
+										"Address"  : "address", 
+										"Suite"    : "address_extended", 
+										"City"     : "locality",
+										"Phone"    : "tel", 
+										"Website"  : "website", 
+										"Distance" : "$distance"
+									   };
 
 					tHead = table.createTHead();
 					tRow = tHead.insertRow(0);
 
-					tableCells(tRow, headerValues, insertCell);
+					tableCells(tRow, [headerValues, {}], insertCell, 'head');
 
 					var tBody = document.createElement('tbody');
+
+					tableCells(tBody, [headerValues, inforArray], insertCell, 'body');
 
 
 				};
@@ -407,15 +415,51 @@
 
 				};
 
-				function tableCells(row, cellValues, method) {
+				function tableCells(row, cellValues, method, type) {
 
-					var len = cellValues.length,
-						i;
+					var len = cellValues[0].length,
+						i, j,
+						keyVals = Object.keys(cellValues[0]);
 
-					for (i = 0; i < len; i++) {
+					switch (type) {
 
-						tableEntry = row.method(i);
-						tableEntry.innerHTML = '<b>' + cellValues[i] + '<b>';
+						case 'header':
+
+							for (i = 0; i < len; i++) {
+
+								tableEntry = row.method(i);
+
+								tableEntry.innerHTML = '<b>' + keyVals[i] + '<b>';
+							}
+
+						break;
+
+						case 'body':
+
+							var info = cellValues[1],
+								keysLen = Object.keys(cellValues[1]).length,
+								keys = Object.keys(cellValues[1]);
+
+							for (i = 0; i < len; i++) {
+
+								row = row.insertRow(i);
+
+								tableEntry = row.method(i);
+
+								for (j = 0; j < keysLen, j++) {
+
+									if (info.hasOwnPropert(info[i][keys[j]]) {
+
+										tableEntry.innerHTML = info[i][keys[j]];
+
+									}else {
+
+										tableEntry.innerHTML = '';
+									}
+								}
+							}
+
+							break;
 					}
 
 				};
