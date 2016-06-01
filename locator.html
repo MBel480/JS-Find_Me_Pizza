@@ -447,9 +447,9 @@
 
 								tableEntry = row.method(i);
 
-								for (j = 0; j < keysLen, j++) {
+								for (j = 0; j < keysLen; j++) {
 
-									if (info.hasOwnPropert(info[i][keys[j]]) {
+									if (info.hasOwnPropert(info[i][keys[j]])) {
 
 										switch (info[i][keys[j]]) {
 
@@ -461,7 +461,7 @@
 
 											break;
 
-											case '$distance';
+											case '$distance':
 
 												tableEntry.innerHTML = info[i][keys[j]].toFixed(3);
 
