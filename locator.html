@@ -11,6 +11,8 @@
 
 		<div id="map"></div>
 
+		<div id="datatable"></div>
+
 		<div id="latLng">
 			<form action="">
 				<fieldset>
@@ -45,7 +47,8 @@
 					mapMarkers = [],
 					searchRadii = [],
 					coordDecimals = 7,
-					ajaxResponse;
+					ajaxResponse,
+					tableEntry;
 
 				function initMap() {
 
@@ -148,6 +151,8 @@
 
 						searchRadii.push(searchRadius);
 						searchRadius.bindTo('center', locationMarker, 'position');
+
+
 
 					});
 
@@ -358,6 +363,63 @@
 
 				};
 
+				function buildResultTable(response) {
+
+					var infoArray = processAjaxResponse(response),
+
+						table = document.createElement('table'),
+						tRow,
+						tableProperties, tHead, tRow;
+
+					document.getElementById('datatable').appendChild(table);
+
+					var tableProperties = {"id" : "restable", "cellspacing" : 30,
+										   "border" : "1"};
+
+					setElementAttributes(table,tableProperties,setAttribute);
+
+					var headerValues = ["Name", "Address", "Suite", "City",
+										"Phone", "Website", "Distance"];
+
+					tHead = table.createTHead();
+					tRow = tHead.insertRow(0);
+
+					tableCells(tRow, headerValues, insertCell);
+
+					var tBody = document.createElement('tbody');
+
+
+				};
+
+				function setElementAttributes(el, attribs, method) {
+
+					/*
+					attribs is an object containing attributes 
+					to apply to the DOM element, el, 
+					via the chosen method
+					*/
+
+					for (key in attribs) {
+
+						el.method(key, attribs[key]);
+
+					}
+
+				};
+
+				function tableCells(row, cellValues, method) {
+
+					var len = cellValues.length,
+						i;
+
+					for (i = 0; i < len; i++) {
+
+						tableEntry = row.method(i);
+						tableEntry.innerHTML = '<b>' + cellValues[i] + '<b>';
+					}
+
+				};
+
 				function validNumericInput(event) {
 
 				/*
@@ -403,7 +465,7 @@
 			<script src='locator.js?onload=initialize'></script>
 
 			<script asyn defer
-				src="https://maps.googleapis.com/maps/api/js?ey=AIzaSyAmrQjhfl2vtd_xRE8VQdF-C5z-SncAev0&callback=initMap"
+				src="https://maps.googleapis.com/maps/api/js?callback=initMap"
 			></script>
 
 	</body>
