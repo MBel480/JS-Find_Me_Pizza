@@ -396,6 +396,7 @@
 
 					tableCells(tBody, [headerValues, inforArray], insertCell, 'body');
 
+					document.getElementById('restable').appendChild(tBody);
 
 				};
 
@@ -450,7 +451,26 @@
 
 									if (info.hasOwnPropert(info[i][keys[j]]) {
 
-										tableEntry.innerHTML = info[i][keys[j]];
+										switch (info[i][keys[j]]) {
+
+											case 'website':
+
+												tableEntry.innerHTML = '<a href=' + "\"" +
+												info[i][keys[j]] + "\"" + '>' + info[i][keys[j]] + 
+												'</a>';
+
+											break;
+
+											case '$distance';
+
+												tableEntry.innerHTML = info[i][keys[j]].toFixed(3);
+
+											break;
+
+											default:
+
+												tableEntry.innerHTML = info[i][keys[j]];
+										}
 
 									}else {
 
