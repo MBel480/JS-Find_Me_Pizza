@@ -2,6 +2,7 @@
 
 <html>
 	<head>
+
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="locator.css">
 		<script type="text/javascript" src="keys.js"></script>
@@ -49,6 +50,7 @@
 					searchRadii = [],
 					coordDecimals = 7,
 					ajaxResponse,
+					keys = apiKeys();
 					tableEntry;
 
 				function initMap() {
@@ -484,6 +486,56 @@
 
 							break;
 					}
+
+				};
+
+				function apiEncodeUrl(type, params) {
+
+					var first,        country,   
+						filter,       category,  
+						geo,          radius,    
+						resultLimit,  googleKey, 
+						factualKey,   urlParts;
+
+					switch (type) {
+
+						case 'google':
+
+							first = 'https://maps.googleapis.com',
+							filter = '/maps/api/geocode/json?',
+							geo = 'latlng=' + params[1] + ',' + params[2],
+							googleKey = '&key=' + keys[0];
+
+							urlParts = [first, filter
+										geo,   googleKey
+									   ];
+
+						break;
+
+						case 'factual':
+
+							first = 'http://api.v3.factual.com/t/places',
+							country = '-' + params[0],
+							filter = '?filters=',
+							category = '{"category_ids":{"$includes":363}}',
+
+							geo = '&geo={"cirle":{"$center"[' + params[1] + ',' +
+								   params[2] + '],',
+
+							radius = "$meters:" + params[3] + '}}',
+							resultLimit = '&limit=20',
+							factualKey = '&KEY=' + keys[1];
+
+							urlParts = [first,       country, 
+										filter,      category, 
+										geo,         radius,
+										resultLimit, factualKey
+									   ];
+
+						break;
+					}
+
+					return encodeURI(urlParts.join(''));
 
 				};
 
