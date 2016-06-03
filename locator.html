@@ -6,6 +6,8 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="locator.css">
 		<script type="text/javascript" src="keys.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+		</script>
 		
 	</head>
 
@@ -50,7 +52,7 @@
 					searchRadii = [],
 					coordDecimals = 7,
 					ajaxResponse,
-					keys = apiKeys();
+					keys = apiKeys(),
 					tableEntry;
 
 				function initMap() {
@@ -80,6 +82,8 @@
 					mapTypeId: google.maps.MapTypeId.HYBRID
 		
 					};
+
+					var geoCodeInfo = new google.maps.Geocoder;
 
 					mainMap = new google.maps.Map(mapDiv, mapOptions);
 
@@ -158,6 +162,14 @@
 						//Make call to factual.com API here
 						//Consider reverse geolocation (Google JS API) for country info
 						//Set limits on search radius
+						var searchLat = document.getElementById('marklat').value,
+							searchLng = document.getElementById('marklng').value,
+							googleParams = ['', searchLat, searchLng];
+
+						var geoCodeURL = apiEncodeUrl('google',googleParams),
+							geoLatLng = {lat: searchLat, lng: searchLng};
+
+						
 
 					});
 
@@ -506,7 +518,7 @@
 							geo = 'latlng=' + params[1] + ',' + params[2],
 							googleKey = '&key=' + keys[0];
 
-							urlParts = [first, filter
+							urlParts = [first, filter,
 										geo,   googleKey
 									   ];
 
