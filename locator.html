@@ -141,6 +141,12 @@
 
 					google.maps.event.addListener(locationMarker, "dragend", function() {
 
+						if (document.getElementById('restable')) {
+
+							document.getElementById('datatable').innerHTML = '';
+
+						}
+
 						if (searchRadii.length !== 0) {
 
 							removeFromMap(searchRadii);
