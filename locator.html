@@ -571,10 +571,10 @@
 							filter = '?filters=',
 							category = '{"category_ids":{"$includes":363}}',
 
-							geo = '&geo={"$cirle":{"$center":[' + params[1] + ',' +
+							geo = '&geo={"$circle":{"$center":[' + params[1] + ',' +
 								   params[2] + '],',
 
-							radius = "$meters" + ':' +  params[3] + '}}',
+							radius = '"$meters"' +  ':' +  params[3] + '}}',
 							resultLimit = '&limit=20',
 							factualKey = '&KEY=' + keys[1];
 
