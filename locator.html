@@ -441,7 +441,7 @@
 
 					document.getElementById('datatable').appendChild(table);
 
-					var tableProperties = {"id" : "restable", "cellspacing" : 30,
+					var tableProperties = {"id" : "restable", "cellspacing" : 0,
 										   "border" : "1"};
 
 					setElementAttributes(table, tableProperties);
@@ -497,13 +497,17 @@
 							var j;
 							
 							var tHead = tableSeg.createTHead();
-							var row = tHead.insertRow(0);
+							var row = tHead.insertRow(-1);
+							var headCell;
 
 							for (i = 0; i < headLen; i++) {
 
-								tableEntry = row.insertCell(i);
+								headCell = document.createElement("TH");
 
-								tableEntry.innerHTML = '<b>' + headKeys[i] + '<b>';
+								headCell.innerHTML = headKeys[i];
+
+								row.appendChild(headCell);
+
 							}
 
 						break;
