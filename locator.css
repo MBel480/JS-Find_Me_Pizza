@@ -2,4 +2,41 @@
 	width: 400px;
 	height: 400px;
 	background-color: #CCC;
+	float: left;
+}
+
+#datatable {
+	float: right;
+	/*position: absolute;
+	top: 0;
+	right: 0;*/
+}
+
+#restable td {
+
+	table-layout: fixed;
+	width: 50px;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+
+form fieldset {
+	width: 300px;
+}
+
+#latlng {
+	float: left;
+	overflow: hidden;
+	/*position: absolute;*/
+	/*display: inline-block;*/
+	/*float: inline-end;*/
+	width: 20px;
+	right: 0;
+	top: 0;
+
+}
+
+#radius fieldset{
+	float: left;
+	width: 80px;
 }
