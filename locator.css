@@ -66,6 +66,21 @@ body {
 /*
   =========================
   Map center and map marker
+  coordinates display form
+  container 
+  =========================
+  */
+
+#latlng {
+
+	float: left;
+	overflow: hidden;
+
+}
+
+/*
+  =========================
+  Map center and map marker
   coordinates display form 
   =========================
   */
@@ -97,12 +112,6 @@ input {
 
 }
 
-#latlng {
-
-	float: left;
-	overflow: hidden;
-
-}
 
 /*
   =========================
