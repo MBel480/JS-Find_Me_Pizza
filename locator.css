@@ -1,3 +1,23 @@
+/* 
+  =========================
+  Page body
+  =========================	
+*/
+
+body {
+
+	width: 100%;
+	height: 90%;
+	background-color: #D6AA9A;
+
+}
+
+/* 
+  =========================
+  World map
+  =========================	
+*/
+
 #map {
 	width: 400px;
 	height: 400px;
@@ -5,38 +25,96 @@
 	float: left;
 }
 
+/* 
+  =========================
+  Restaurant data table
+  container
+  =========================	
+*/
+
 #datatable {
+
 	float: right;
-	/*position: absolute;
-	top: 0;
-	right: 0;*/
+	height: 800px;
+
+}
+
+/* 
+  =========================
+  Restaurant data table
+  container
+  =========================	
+*/
+
+#restable {
+
+	overflow: scroll;
+	background-color: #C2C9CC;
+
 }
 
 #restable td {
 
 	table-layout: fixed;
-	width: 50px;
+	width: 130px;
 	overflow: hidden;
 	word-wrap: break-word;
+	border-color: green;
+	font-weight: bold;
 }
 
+/*
+  =========================
+  Map center and map marker
+  coordinates display form 
+  =========================
+  */
+
 form fieldset {
+
 	width: 300px;
+	background-color: #C2C9CC;
+	border-radius: 5px;
+
+}
+
+label {
+
+	display: inline-block;
+	float: left;
+	clear: left;
+	width: 180px;
+	text-align: left;
+	padding-bottom: 10px;
+
+}
+
+input {
+
+	display: inline-block;
+	float: left;
+	width: 100px;
+
 }
 
 #latlng {
+
 	float: left;
 	overflow: hidden;
-	/*position: absolute;*/
-	/*display: inline-block;*/
-	/*float: inline-end;*/
-	width: 20px;
-	right: 0;
-	top: 0;
 
 }
 
+/*
+  =========================
+  Search radius entry form 
+  =========================
+  */
+
 #radius fieldset{
+
 	float: left;
-	width: 80px;
+	width: 50px;
+	background-color: #C2C9CC;
+	border-radius: 5px;
+
 }
