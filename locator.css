@@ -62,7 +62,7 @@ a {
 
 	overflow: scroll;
 	background-color: black;
-
+	table-layout: fixed;
 }
 
 #restable th {
@@ -74,8 +74,8 @@ a {
 
 #restable td {
 
-	table-layout: fixed;
-	width: 130px;
+	
+	width: 110px;
 	overflow: hidden;
 	word-wrap: break-word;
 	border-color: green;
