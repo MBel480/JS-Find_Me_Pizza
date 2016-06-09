@@ -11,7 +11,7 @@
 		
 	</head>
 
-	<body>
+	<body background="koomis_pizza.jpg">
 
 		<div id="map"></div>
 
@@ -21,13 +21,13 @@
 			<form action="">
 				<fieldset>
 
-					<label>Map Latitude:</label>
+					<label>Map Latitude (deg):</label>
 					<input readonly type="text" id="lat"/>
-					<label>Map Longitude:</label>
+					<label>Map Longitude (deg):</label>
 					<input readonly type="text" id="lng"/>
-					<label>Marker Latitude:</label>
+					<label>Marker Latitude (deg):</label>
 					<input readonly type="text" id="marklat"/>
-					<label>Marker Longitude:</label>
+					<label>Marker Longitude (deg):</label>
 					<input readonly type="text" id="marklng"/>
 
 				</fieldset>
@@ -37,7 +37,7 @@
 		<div id="radius">
 			<form action="">
 				<fieldset>
-					<label>Search Radius</label>
+					<label>Search Radius (miles)</label>
 					<input type="text" id="rad_input" 
 					onpaste="return false" onkeydown="return validNumericInput(event)">
 				</fieldset>
@@ -139,7 +139,7 @@
 					search radius
 					==============================*/
 
-					google.maps.event.addListener(locationMarker, "dragend", function() {
+					google.maps.event.addListener(locationMarker, "click", function() {
 
 						if (document.getElementById('restable')) {
 
@@ -446,13 +446,16 @@
 
 					setElementAttributes(table, tableProperties);
 
-					var headerValues = {"Name"     : "name", 
-										"Address"  : "address", 
-										"Suite"    : "address_extended", 
-										"City"     : "locality",
-										"Phone"    : "tel", 
-										"Website"  : "website", 
-										"Distance" : "$distance"
+					var headerValues = {
+
+										"Name"         : "name", 
+										"Address"      : "address", 
+										"Suite"        : "address_extended", 
+										"City"         : "locality",
+										"Phone"        : "tel", 
+										"Website"  	   : "website", 
+										"Distance (m)" : "$distance"
+
 									   };
 
 					

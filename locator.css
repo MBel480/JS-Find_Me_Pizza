@@ -14,13 +14,25 @@ body {
 
 /* 
   =========================
+  Links
+  =========================	
+*/
+
+a {
+
+	color: yellow;
+
+}
+
+/* 
+  =========================
   World map
   =========================	
 */
 
 #map {
-	width: 400px;
-	height: 400px;
+	width: 500px;
+	height: 500px;
 	background-color: #CCC;
 	float: left;
 }
@@ -49,8 +61,15 @@ body {
 #restable {
 
 	overflow: scroll;
-	background-color: #C2C9CC;
+	background-color: black;
 
+}
+
+#restable th {
+
+	border-color: green;
+	font: bold 14px Arial, Helvetica, sans-serif;
+	color: white;
 }
 
 #restable td {
@@ -60,7 +79,8 @@ body {
 	overflow: hidden;
 	word-wrap: break-word;
 	border-color: green;
-	font-weight: bold;
+	font: bold 14px Arial, Helvetica, sans-serif;
+	color: white;
 }
 
 /*
@@ -91,6 +111,7 @@ form fieldset {
 	background-color: #C2C9CC;
 	border-radius: 5px;
 
+
 }
 
 label {
@@ -101,6 +122,8 @@ label {
 	width: 180px;
 	text-align: left;
 	padding-bottom: 10px;
+	color: red;
+	font: bold 14px Arial, Helvetica, sans-serif;
 
 }
 
@@ -109,7 +132,9 @@ input {
 	display: inline-block;
 	float: left;
 	width: 100px;
-
+	font: bold 14px Arial, Helvetica, sans-serif;
+	background-color: black;
+	color: white;
 }
 
 
