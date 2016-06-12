@@ -13,35 +13,38 @@
 
 	<body background="koomis_pizza.jpg">
 
-		<div id="map"></div>
+		<div id="contain">
 
-		<div id="datatable"></div>
+			<div id="map"></div>
 
-		<div id="latLng">
-			<form action="">
-				<fieldset>
+			<div id="datatable"></div>
 
-					<label>Map Latitude (deg):</label>
-					<input readonly type="text" id="lat"/>
-					<label>Map Longitude (deg):</label>
-					<input readonly type="text" id="lng"/>
-					<label>Marker Latitude (deg):</label>
-					<input readonly type="text" id="marklat"/>
-					<label>Marker Longitude (deg):</label>
-					<input readonly type="text" id="marklng"/>
+			<div id="latLng">
+				<form action="">
+					<fieldset>
 
-				</fieldset>
-			</form>
-		</div>
+						<label>Map Latitude (deg):</label>
+						<input readonly type="text" id="lat"/>
+						<label>Map Longitude (deg):</label>
+						<input readonly type="text" id="lng"/>
+						<label>Marker Latitude (deg):</label>
+						<input readonly type="text" id="marklat"/>
+						<label>Marker Longitude (deg):</label>
+						<input readonly type="text" id="marklng"/>
 
-		<div id="radius">
-			<form action="">
-				<fieldset>
-					<label>Search Radius (miles)</label>
-					<input type="text" id="rad_input" 
-					onpaste="return false" onkeydown="return validNumericInput(event)">
-				</fieldset>
-			</form>
+					</fieldset>
+				</form>
+			</div>
+
+			<div id="radius">
+				<form action="">
+					<fieldset>
+						<label>Search Radius (miles)</label>
+						<input type="text" id="rad_input" 
+						onpaste="return false" onkeydown="return validNumericInput(event)">
+					</fieldset>
+				</form>
+			</div>
 		</div>
 
 			<script>
@@ -539,7 +542,7 @@
 
 											case 'website':
 
-												tableEntry.innerHTML = '<a href=' + "\"" +
+												tableEntry.innerHTML = '<a target="_blank" href=' + "\"" +
 												info[i][keyName] + "\"" + '>' + info[i][keyName] + 
 												'</a>';
 
@@ -602,7 +605,7 @@
 								   params[2] + '],',
 
 							radius = '"$meters"' +  ':' +  params[3] + '}}',
-							resultLimit = '&limit=20',
+							resultLimit = '&limit=50',
 							factualKey = '&KEY=' + secureKeys[1];
 
 							urlParts = [first,       country, 
