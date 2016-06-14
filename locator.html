@@ -13,7 +13,7 @@
 
 	<body background="koomis_pizza.jpg">
 
-		<div id="contain">
+		<div id="container">
 
 			<div id="map"></div>
 
@@ -49,14 +49,15 @@
 
 			<script>
 
-				var mainMap,
-					earthR = 6371,  //Mean radius of Earth (km)
-					mapMarkers = [],
-					searchRadii = [],
-					coordDecimals = 7,
-					ajaxResponse,
-					secureKeys = apiKeys(),
-					tableEntry;
+				var mainMap;
+				var	earthR = 6371;  //Mean radius of Earth (km)
+				var	mapMarkers = [];
+				var	searchRadii = [];
+				var	coordDecimals = 7;
+				var distDecimals = 4;
+				var	ajaxResponse;
+				var	secureKeys = apiKeys();
+				var	tableEntry;
 
 				function initMap() {
 
@@ -276,6 +277,12 @@
 
 				};
 
+				function metersToMiles(radius) {
+
+					return radius * (3937 / (1200 * 5280));
+
+				}
+
 				function greatCircleDistance(lat1, lng1, lat2, lng2) {
 
 					/*Compute great circle distance from center of 
@@ -303,7 +310,7 @@
 
 					dist = Math.acos(sinProduct + cosProduct * deltaLng) * earthR;
 
-					return (dist * 1000).toFixed(3);
+					return (dist * 1000);
 
 				};
 
@@ -451,13 +458,13 @@
 
 					var headerValues = {
 
-										"Name"         : "name", 
-										"Address"      : "address", 
-										"Suite"        : "address_extended", 
-										"City"         : "locality",
-										"Phone"        : "tel", 
-										"Website"  	   : "website", 
-										"Distance (m)" : "$distance"
+										"Name"             : "name", 
+										"Address"          : "address", 
+										"Suite"            : "address_extended", 
+										"City"             : "locality",
+										"Phone"            : "tel", 
+										"Website"  	       : "website", 
+										"Distance (miles)" : "$distance",
 
 									   };
 
@@ -516,6 +523,10 @@
 
 							}
 
+							headCell = document.createElement("TH");
+							headCell.innerHTML = "GC Distance (miles)"
+							row.appendChild(headCell);
+
 						break;
 
 						case 'body':
@@ -550,7 +561,8 @@
 
 											case '$distance':
 
-												tableEntry.innerHTML = info[i][keyName].toFixed(3);
+												tableEntry.innerHTML = 
+													metersToMiles(info[i][keyName]).toFixed(distDecimals);
 
 											break;
 
@@ -564,6 +576,17 @@
 										tableEntry.innerHTML = '';
 									}
 								}
+
+								var lat1 = Number(document.getElementById("marklat").value);
+								var lng1 = Number(document.getElementById("marklng").value);
+								var lat2 = info[i].latitude;
+								var lng2 = info[i].longitude;
+
+								var gcDistance = greatCircleDistance(lat1, lng1, lat2, lng2);
+
+								tableEntry = row.insertCell(j);
+								tableEntry.innerHTML = metersToMiles(gcDistance).toFixed(distDecimals);
+
 							}
 
 							break;

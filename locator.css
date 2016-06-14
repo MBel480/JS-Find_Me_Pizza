@@ -45,7 +45,7 @@ a:visited {
   =========================	
 */
 
-#contain {
+#container {
 	margin: auto;
 	width: 1900px;
 	height: 1200px;
@@ -71,10 +71,19 @@ a:visited {
   =========================	
 */
 
+table {
+
+	table-layout: fixed;
+	width: 150px;
+	border-radius: 5px;
+
+}
+
 #datatable {
 
 	float: right;
 	height: 800px;
+	overflow: scroll;
 
 }
 
@@ -85,11 +94,12 @@ a:visited {
   =========================	
 */
 
+
 #restable {
 
 	overflow: scroll;
 	background-color: #C2C9CC;
-	table-layout: fixed;
+
 }
 
 #restable th {
@@ -97,17 +107,19 @@ a:visited {
 	border-color: red;
 	font: bold 16px Arial, Helvetica, sans-serif;
 	color: black;
+	width: 150px;
 }
 
 #restable td {
 
 	
-	width: 100px;
+	width: 150px;
 	overflow: hidden;
-	word-wrap: break-word;
+	/*word-wrap: break-word;*/
 	border-color: red;
 	font: bold 14px Arial, Helvetica, sans-serif;
 	color: green;
+	text-align: center;
 }
 
 /*
