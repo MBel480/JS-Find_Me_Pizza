@@ -54,7 +54,7 @@
 				var	mapMarkers = [];
 				var	searchRadii = [];
 				var	coordDecimals = 7;
-				var distDecimals = 4;
+				var distDecimals = 3;
 				var	ajaxResponse;
 				var	secureKeys = apiKeys();
 				var	tableEntry;
@@ -314,32 +314,6 @@
 
 				};
 
-				function searchRadiusBounds(radius, lat, lng) {
-
-					/*Expedite location discovery in database by
-					  considering only those points within
-					  the computed search radius bounds.
-					 */
-
-					var convertRadius = milesToMeters(radius) / 1000,
-						angularDistance = radiansToDegrees(convertRadius / earthR),
-						convertLng = degreesToRadians(lng),
-						maxLat, minLat,
-						maxLng, minLng,
-						lngCompensate = radiansToDegrees(convertRadius /
-										(earthR / Math.cos(convertLng)));
-
-					maxLat = lat + angularDistance;
-
-					minLat = lat - angularDistance;
-
-					maxLng = lng + lngCompensate;
-
-					minLng = lng - lngCompensate;
-
-					return [minLat, maxLat, minLng, maxLng];
-
-				};
 
 				function degreesToRadians(coordinate) {
 
@@ -523,10 +497,6 @@
 
 							}
 
-							headCell = document.createElement("TH");
-							headCell.innerHTML = "GC Distance (miles)"
-							row.appendChild(headCell);
-
 						break;
 
 						case 'body':
@@ -561,8 +531,18 @@
 
 											case '$distance':
 
+												var lat1 = Number(document.getElementById("marklat").value);
+												var lng1 = Number(document.getElementById("marklng").value);
+												var lat2 = info[i].latitude;
+												var lng2 = info[i].longitude;
+
+												var gcDistance = greatCircleDistance(lat1, lng1, lat2, lng2);
+
 												tableEntry.innerHTML = 
-													metersToMiles(info[i][keyName]).toFixed(distDecimals);
+													metersToMiles(gcDistance).toFixed(distDecimals);
+
+												// tableEntry.innerHTML = 
+												// 	metersToMiles(info[i][keyName]).toFixed(distDecimals);
 
 											break;
 
@@ -577,15 +557,6 @@
 									}
 								}
 
-								var lat1 = Number(document.getElementById("marklat").value);
-								var lng1 = Number(document.getElementById("marklng").value);
-								var lat2 = info[i].latitude;
-								var lng2 = info[i].longitude;
-
-								var gcDistance = greatCircleDistance(lat1, lng1, lat2, lng2);
-
-								tableEntry = row.insertCell(j);
-								tableEntry.innerHTML = metersToMiles(gcDistance).toFixed(distDecimals);
 
 							}
 
