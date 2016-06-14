@@ -172,11 +172,11 @@
 						//Make call to factual.com API here
 						//Consider reverse geolocation (Google JS API) for country info
 						//Set limits on search radius
-						var searchLat = document.getElementById('marklat').value,
-							searchLng = document.getElementById('marklng').value,
-							factualParams,
-							factualUrl,
-							factualRadius = searchRadius.radius;
+						var searchLat = getElement("id", "marklat");
+						var	searchLng = getElement("id", "marklng");
+						var	factualParams;
+						var	factualUrl;
+						var	factualRadius = searchRadius.radius;
 							
 
 						var geoLatLng = {lat: parseFloat(searchLat), lng: parseFloat(searchLng)},
@@ -438,7 +438,7 @@
 										"City"             : "locality",
 										"Phone"            : "tel", 
 										"Website"  	       : "website", 
-										"Distance (miles)" : "$distance",
+										"Distance (miles)" : "$distance"
 
 									   };
 
@@ -465,6 +465,26 @@
 					for (key in attribs) {
 
 						el.setAttribute(key, attribs[key]);
+
+					}
+
+				};
+
+				function getElement(type, name) {
+
+					switch (type) {
+
+						case "id":
+							return document.getElementById(name).value;
+							break;
+
+						case "class":
+							return document.getElementsByClassName(name).value;
+							break;
+
+						case "tag":
+							return document.getElementsByTagName(name).value;
+							break;
 
 					}
 
@@ -531,8 +551,8 @@
 
 											case '$distance':
 
-												var lat1 = Number(document.getElementById("marklat").value);
-												var lng1 = Number(document.getElementById("marklng").value);
+												var lat1 = Number(getElement("id", "marklat"));
+												var lng1 = Number(getElement("id", "marklng"));
 												var lat2 = info[i].latitude;
 												var lng2 = info[i].longitude;
 
