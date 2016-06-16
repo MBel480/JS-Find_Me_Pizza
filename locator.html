@@ -103,22 +103,28 @@
 
 						// var latitude = event.latLng.lat(),
 						// 	longitude = event.latLng.lng(),
-						var latOutput = document.getElementById("lat"),
-						lngOutput = document.getElementById("lng");
+						var latOutput = document.getElementById("lat");
+						var lngOutput = document.getElementById("lng");
 
 						latOutput.value = mainMap.getCenter().lat().toFixed(coordDecimals);
 						lngOutput.value = mainMap.getCenter().lng().toFixed(coordDecimals);
 
+
 					});
 
-					locationMarker = new google.maps.Marker({
-							map: mainMap,
-							draggable: true,
-							position: mainMap.getCenter()
-						});
+					/*============================
+					Initial map marker location
+					set to map center
+					==============================*/
 
-					locationMarker.setMap(mainMap);
+					locationMarker = new google.maps.Marker({
+								map: mainMap,
+								draggable: true,
+								position: mainMap.getCenter()
+							});
+
 					mapMarkers.push(locationMarker);
+
 
 					/*============================
 					Marker position change displays
@@ -135,6 +141,25 @@
 
 						document.getElementById("marklng").value = 
 						locationMarker.getPosition().lng().toFixed(coordDecimals);
+
+					});
+
+					/*============================
+					Ensure map marker maintains its
+					position at center of map, when
+					user finishes dragging the map
+					to a new location
+					==============================*/
+
+					google.maps.event.addListener(mainMap, "dragend", function() {
+
+						removeFromMap(mapMarkers);
+						removeFromMap(searchRadii);
+
+						locationMarker.position = mainMap.getCenter();
+						locationMarker.setMap(mainMap);
+
+						mapMarkers.push(locationMarker);
 
 					});
 
