@@ -120,7 +120,8 @@
 					locationMarker = new google.maps.Marker({
 								map: mainMap,
 								draggable: true,
-								position: mainMap.getCenter()
+								position: mainMap.getCenter(),
+								icon: "http://maps.google.com/mapfiles/kml/pal3/icon20.png"
 							});
 
 					mapMarkers.push(locationMarker);
@@ -220,6 +221,7 @@
 
 										countryCode = results[res].address_components[0]
 										.short_name.toLowerCase();
+										break;
 									}
 
 								}
@@ -547,6 +549,13 @@
 						case 'body':
 
 							var info = cellValues[1];
+
+								info = info.sort(function(first, second) {
+
+									return first.$distance - second.$distance;
+
+								})
+
 							var	infoLen = info.length;
 							var keyName;
 							var	row;
@@ -683,6 +692,7 @@
 					key === 37  || key === 39)  {
 
 					return true;
+				
 					//Period key check (keyboard 110; keypad: 190)
 				}else if (key === 110 || key === 190) {
 
