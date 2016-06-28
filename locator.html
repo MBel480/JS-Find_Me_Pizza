@@ -167,7 +167,7 @@
 
 						document.getElementById("marklng").value = locationMarker.getPosition()
 																	.lng().toFixed(coordDecimals);
-
+						//Refactor locationMarker.getPosition into a function
 					});
 
 					/*============================
@@ -487,9 +487,11 @@
 				function setElementAttributes(el, attribs) {
 
 					/*
+					========================================
 					attribs is an object containing attributes 
 					to apply to the DOM element, el, 
 					via the chosen method
+					========================================
 					*/
 
 					for (key in attribs) {
@@ -563,7 +565,9 @@
 								info = info.filter(function(obj) {
 
 									if (obj.hasOwnProperty("locality") && 
-										uniquePhone.indexOf(obj.tel) === -1) {
+										uniquePhone.indexOf(obj.tel) === -1 &&
+										Number(getElement("id", "rad_input")) 
+										>= metersToMiles(obj.$distance)) {
 
 										uniquePhone.push(obj.tel);
 
