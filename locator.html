@@ -158,9 +158,15 @@
 						removeFromMap(searchRadii);
 
 						locationMarker.position = mainMap.getCenter();
-						locationMarker.setMap(mainMap);
+						locationMarker.setMap(mainMap);	
 
 						mapMarkers.push(locationMarker);
+
+						document.getElementById("marklat").value = locationMarker.getPosition()
+																	.lat().toFixed(coordDecimals);
+
+						document.getElementById("marklng").value = locationMarker.getPosition()
+																	.lng().toFixed(coordDecimals);
 
 					});
 
@@ -195,9 +201,6 @@
 						searchRadii.push(searchRadius);
 						searchRadius.bindTo('center', locationMarker, 'position');
 
-						//Make call to factual.com API here
-						//Consider reverse geolocation (Google JS API) for country info
-						//Set limits on search radius
 						var searchLat = getElement("id", "marklat");
 						var	searchLng = getElement("id", "marklng");
 						var	factualParams;
@@ -549,12 +552,26 @@
 						case 'body':
 
 							var info = cellValues[1];
+							var uniquePhone = [];
 
 								info = info.sort(function(first, second) {
 
 									return first.$distance - second.$distance;
 
 								})
+
+								info = info.filter(function(obj) {
+
+									if (obj.hasOwnProperty("locality") && 
+										uniquePhone.indexOf(obj.tel) === -1) {
+
+										uniquePhone.push(obj.tel);
+
+										return obj;
+
+									}
+
+								});
 
 							var	infoLen = info.length;
 							var keyName;
@@ -692,7 +709,7 @@
 					key === 37  || key === 39)  {
 
 					return true;
-				
+
 					//Period key check (keyboard 110; keypad: 190)
 				}else if (key === 110 || key === 190) {
 
