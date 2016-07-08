@@ -61,13 +61,14 @@
 
 				function initMap() {
 
-					/*============================
+					/*
+					============================
 					Map centered on Washington, D.C.
 					with main map controls active
-					==============================*/
+					==============================
+					*/
 
-					var sanFrancisco = new google.maps.LatLng(37.773972, -122.431297),
-						mapDiv = document.getElementById('map');
+					var	mapDiv = document.getElementById('map');
 
 					var mapOptions = {
 
@@ -94,10 +95,12 @@
 					document.getElementById("lat").value = mapOptions.center.lat();
 					document.getElementById("lng").value = mapOptions.center.lng();
 
-					/*============================
+					/*
+					============================
 					Map center change displays
 					latitude and longitude
-					==============================*/
+					==============================
+					*/
 
 					google.maps.event.addListener(mainMap, "center_changed", function() {
 
@@ -112,10 +115,12 @@
 
 					});
 
-					/*============================
+					/*
+					============================
 					Initial map marker location
 					set to map center
-					==============================*/
+					==============================
+					*/
 
 					locationMarker = new google.maps.Marker({
 								map: mainMap,
@@ -127,10 +132,12 @@
 					mapMarkers.push(locationMarker);
 
 
-					/*============================
+					/*
+					============================
 					Marker position change displays
 					latitude and longitude
-					==============================*/
+					==============================
+					*/
 					
 					document.getElementById("marklat").value = mapOptions.center.lat();
 					document.getElementById("marklng").value = mapOptions.center.lng();	
@@ -170,10 +177,12 @@
 						//Refactor locationMarker.getPosition into a function
 					});
 
-					/*============================
+					/*
+					============================
 					Marker terminal position displays
 					search radius
-					==============================*/
+					==============================
+					*/
 
 					google.maps.event.addListener(locationMarker, "click", function() {
 
@@ -258,10 +267,13 @@
 
 					});
 
-					/*============================
+					/*
+					============================
 					Center map using geolocation 
 					(if supported by browser)
-					==============================*/
+					==============================
+					*/
+
 					getCurrentLocation();
 
 				};
@@ -275,11 +287,10 @@
 					}else {
 
 					
-						alert("Geolocation not supported by browser; centering map on San Francisco ");
-
-						mainMap.setCenter(sanFrancisco);
+						alert("Geolocation is not supported by your browser.");
 
 					}
+
 				};
 
 				function showPosition(position) {
@@ -315,9 +326,12 @@
 
 				function greatCircleDistance(lat1, lng1, lat2, lng2) {
 
-					/*Compute great circle distance from center of 
-					  search circle to locations discovered in 
-					  database that fall within search radius bounds 
+					/*
+					========================================
+					Compute great circle distance from center of 
+					search circle to locations discovered in 
+					database that fall within search radius bounds
+					======================================== 
 					*/
 
 					var coordsArray = Array.prototype.slice.call(arguments),
@@ -397,6 +411,7 @@
 					function checkReadiness() {
 
 						/*
+						========================================
 
 						 XMLHttpRequest object readyState properties:
 
@@ -408,7 +423,7 @@
 
 						 200: status "OK"
 						 404: status "Page not found"
-
+						========================================
 						*/
 
 						if (xhttpR.readyState < 4) {
@@ -529,7 +544,7 @@
 					var headLen = headKeys.length;
 
 					switch (type) {
-
+						//Modify CSS to ensure header row in fixed position while scrolling
 						case 'head':
 
 							var i; 
@@ -555,6 +570,15 @@
 
 							var info = cellValues[1];
 							var uniquePhone = [];
+
+								/*
+								========================================
+								Tabulated results sorted by distance
+								(ascending order) and without repeated
+								entries.  Results will all be within
+								the specified search radius.
+								========================================
+								*/
 
 								info = info.sort(function(first, second) {
 
