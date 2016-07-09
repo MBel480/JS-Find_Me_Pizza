@@ -46,9 +46,27 @@ a:visited {
 */
 
 #container {
-	margin: auto;
-	width: 1900px;
-	height: 1200px;
+
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
+	height: 95%;
+}
+
+/* 
+  =========================
+  Title bar
+  =========================	
+*/
+
+#titlebar {
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 80px;
+	background-color: #0c0;
 }
 
 /* 
@@ -58,10 +76,16 @@ a:visited {
 */
 
 #map {
-	width: 500px;
+
+	position: relative;
+	width: 540px;
 	height: 500px;
 	background-color: #CCC;
-	float: left;
+	/*float: left;*/
+	margin-top: 7%;
+	/*top: 10%;*/
+	/*z-index: -1;*/
+
 }
 
 /* 
@@ -81,9 +105,13 @@ table {
 
 #datatable {
 
-	float: right;
-	height: 800px;
-	overflow: scroll;
+	position: relative;
+	/*float: right;*/
+	height: 700px;
+	width: 1090px;
+	overflow-y: auto;
+	left: 700px;
+	top: -500px;
 
 }
 
@@ -112,7 +140,6 @@ table {
 
 #restable td {
 
-	
 	width: 150px;
 	overflow: hidden;
 	/*word-wrap: break-word;*/
@@ -132,9 +159,8 @@ table {
 
 #latlng {
 
-	/*position: absolute;
-	width: 300px;*/
-
+	position: relative;
+	
 }
 
 /*
@@ -143,6 +169,13 @@ table {
   coordinates display form 
   =========================
   */
+
+
+form {
+
+	width: 325px;
+	margin-top: -690px;
+}
 
 form fieldset {
 
@@ -183,11 +216,27 @@ input {
   =========================
   */
 
+#radius {
+
+	width: 205px;
+}
+
+#radius form {
+
+	width: 205px;
+	margin-left: 330px;
+	margin-bottom: 50px;
+	margin-top: -99px;
+}
+
 #radius fieldset{
 
-	float: left;
+	position: relative;
+	/*float: left;*/
 	width: 50px;
 	background-color: #C2C9CC;
 	border-radius: 5px;
+	/*clear: both;*/
+	top: 71%;
 
 }

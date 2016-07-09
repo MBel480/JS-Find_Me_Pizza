@@ -3,17 +3,18 @@
 <html>
 	<head>
 
+		<title>Find the Pizza</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="locator.css">
 		<script type="text/javascript" src="keys.js"></script>
-		
-		</script>
 		
 	</head>
 
 	<body background="koomis_pizza.jpg">
 
 		<div id="container">
+
+			<div id="titlebar"></div>
 
 			<div id="map"></div>
 
@@ -40,7 +41,8 @@
 				<form action="">
 					<fieldset>
 						<label>Search Radius (miles)</label>
-						<input type="text" id="rad_input" 
+						<input type="number" id="rad_input"
+						min="1" max="6" maxlength="3"
 						onpaste="return false" onkeydown="return validNumericInput(event)">
 					</fieldset>
 				</form>
