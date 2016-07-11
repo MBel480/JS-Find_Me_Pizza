@@ -106,8 +106,6 @@
 
 					google.maps.event.addListener(mainMap, "center_changed", function() {
 
-						// var latitude = event.latLng.lat(),
-						// 	longitude = event.latLng.lng(),
 						var latOutput = document.getElementById("lat");
 						var lngOutput = document.getElementById("lng");
 
@@ -266,6 +264,7 @@
 
 						});
 
+						mainMap.setCenter(geoLatLng);
 						mainMap.setZoom(13);
 
 					});
