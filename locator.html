@@ -76,7 +76,7 @@
 
 					center: new google.maps.LatLng(38.889931, -77.009003),
 
-					zoom: 8,
+					zoom: 10,
 
 					zoomControl: true,
 
@@ -266,6 +266,7 @@
 
 						});
 
+						mainMap.setZoom(13);
 
 					});
 
@@ -489,8 +490,6 @@
 
 									   };
 
-					
-
 					tableCells(table, [headerValues, {}], 'head');
 
 					var tBody = document.createElement('tbody');
@@ -637,13 +636,17 @@
 												var lat2 = info[i].latitude;
 												var lng2 = info[i].longitude;
 
+												mapMarkers.push(new google.maps.Marker({
+													map: mainMap,
+													icon: "pizza.png",
+													position: new google.maps.LatLng(lat2, lng2),
+													title: info[i].name
+												}));
+
 												var gcDistance = greatCircleDistance(lat1, lng1, lat2, lng2);
 
 												tableEntry.innerHTML = 
 													metersToMiles(gcDistance).toFixed(distDecimals);
-
-												// tableEntry.innerHTML = 
-												// 	metersToMiles(info[i][keyName]).toFixed(distDecimals);
 
 											break;
 
