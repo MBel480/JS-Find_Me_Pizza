@@ -64,7 +64,19 @@
 				function initMap() {
 
 					/*
-					============================
+					=============================
+					Valid world coordinate system 
+					bounds (SW corner, NE corner)
+					==============================
+					*/
+
+					var worldBounds = new google.maps.LatLngBounds(
+						new google.maps.LatLng(85, -180),
+						new google.maps.LatLng(-85, 180)
+					);
+
+					/*
+					==============================
 					Map centered on Washington, D.C.
 					with main map controls active
 					==============================
@@ -99,6 +111,38 @@
 
 					/*
 					============================
+					Keep map within standard
+					world latitude/longitude bounds
+					Latitude:  +/- 85  degrees
+					Longitude: +/- 180 degrees
+					==============================
+					*/
+
+					google.maps.event.addListener(mainMap, "bounds_changed", function() {
+
+						if (worldBounds.contains(mainMap.getCenter())) return;
+
+						var mapCenter = mainMap.getCenter();
+						var mapLat = mapCenter.lat();
+						var mapLng = mapCenter.lng();
+
+						var maxLat = worldBounds.getSouthWest().lat();
+						var minLat = worldBounds.getNorthEast().lat();
+						
+						var maxLng = worldBounds.getNorthEast().lng();
+						var minLng = worldBounds.getSouthWest().lng();
+
+						if (mapLat < minLat) mapLat = minLat;
+						if (mapLat > maxLat) mapLat = maxLat;
+						if (mapLng < minLng) mapLng = minLng;
+						if (mapLng > maxLng) mapLng = maxLng;
+
+						mainMap.setCenter(new google.maps.LatLng(mapLat, mapLng));
+
+					});
+
+					/*
+					============================
 					Map center change displays
 					latitude and longitude
 					==============================
@@ -111,7 +155,6 @@
 
 						latOutput.value = mainMap.getCenter().lat().toFixed(coordDecimals);
 						lngOutput.value = mainMap.getCenter().lng().toFixed(coordDecimals);
-
 
 					});
 
