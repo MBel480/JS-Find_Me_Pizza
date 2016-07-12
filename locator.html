@@ -41,7 +41,7 @@
 				<form action="">
 					<fieldset>
 						<label>Search Radius (miles)</label>
-						<input type="number" id="rad_input"
+						<input type="number" value="1" id="rad_input"
 						min="1" max="6" maxlength="3"
 						onpaste="return false" onkeydown="return validNumericInput(event)">
 					</fieldset>
@@ -65,7 +65,7 @@
 
 					/*
 					=============================
-					Valid world coordinate system 
+					Valid world map coordinate system 
 					bounds (SW corner, NE corner)
 					==============================
 					*/
@@ -204,9 +204,6 @@
 
 					google.maps.event.addListener(mainMap, "dragend", function() {
 
-						removeFromMap(mapMarkers);
-						removeFromMap(searchRadii);
-
 						locationMarker.position = mainMap.getCenter();
 						locationMarker.setMap(mainMap);	
 
@@ -228,6 +225,9 @@
 					*/
 
 					google.maps.event.addListener(locationMarker, "click", function() {
+
+						removeFromMap(mapMarkers);
+						removeFromMap(searchRadii);
 
 						if (document.getElementById('restable')) {
 
@@ -764,10 +764,12 @@
 				function validNumericInput(event) {
 
 				/*
+				========================================
 				validNumericInput restricts search
 				radius input box into accepting
 				only numbers and certain
 				keyboard key actions
+				========================================
 				*/
 
 				//Cross-browser key code extraction method selection
