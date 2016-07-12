@@ -253,6 +253,9 @@
 						searchRadii.push(searchRadius);
 						searchRadius.bindTo('center', locationMarker, 'position');
 
+						locationMarker.position = mainMap.getCenter();
+						locationMarker.setMap(mainMap);
+
 						var searchLat = getElement("id", "marklat");
 						var	searchLng = getElement("id", "marklng");
 						var	factualParams;
