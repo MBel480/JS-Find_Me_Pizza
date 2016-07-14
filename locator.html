@@ -187,11 +187,7 @@
 
 					google.maps.event.addListener(locationMarker, "drag", function() {
 
-						document.getElementById("marklat").value = 
-						locationMarker.getPosition().lat().toFixed(coordDecimals);
-
-						document.getElementById("marklng").value = 
-						locationMarker.getPosition().lng().toFixed(coordDecimals);
+						markerSetPosition();
 
 					});
 
@@ -204,17 +200,20 @@
 
 					google.maps.event.addListener(mainMap, "dragend", function() {
 
+						
 						locationMarker.position = mainMap.getCenter();
 						locationMarker.setMap(mainMap);	
 
 						mapMarkers.push(locationMarker);
 
-						document.getElementById("marklat").value = locationMarker.getPosition()
-																	.lat().toFixed(coordDecimals);
+						//markerSetPosition();
 
-						document.getElementById("marklng").value = locationMarker.getPosition()
-																	.lng().toFixed(coordDecimals);
-						//Refactor locationMarker.getPosition into a function
+					});
+
+					google.maps.event.addListener(locationMarker, "dragend", function() {
+
+						mainMap.setCenter(locationMarker.getPosition());
+
 					});
 
 					/*
@@ -347,6 +346,21 @@
 						position.coords.longitude);
 
 					mainMap.setCenter(presentLocation);
+
+					locationMarker.position = presentLocation;
+					locationMarker.setMap(mainMap);
+
+					markerSetPosition();
+
+				};
+
+				function markerSetPosition() {
+
+					document.getElementById("marklat").value = locationMarker.getPosition()
+																.lat().toFixed(coordDecimals);
+
+					document.getElementById("marklng").value = locationMarker.getPosition()
+																.lng().toFixed(coordDecimals);
 				};
 
 				function removeFromMap(itemArray) {
