@@ -3,7 +3,7 @@
 <html>
 	<head>
 
-		<title>Find the Pizza</title>
+		<title>FMP - Find Me Pizza</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="locator.css">
 		<script type="text/javascript" src="keys.js"></script>
@@ -14,7 +14,11 @@
 
 		<div id="container">
 
-			<div id="titlebar"></div>
+			<div id="titlebar">
+				<img id ="logo" src="FMP_Logo.png"/>
+				<h1>Find Me Pizza</h1>
+				<h5>Life can be a hassle.<br/>Finding pizza shouldn't.</h5>
+			</div>
 
 			<div id="map"></div>
 
@@ -42,11 +46,14 @@
 					<fieldset>
 						<label>Search Radius (miles)</label>
 						<input type="number" value="1" id="rad_input"
-						min="1" max="6" maxlength="3"
+						min="1" max="6" pattern=".{1,5}" 
 						onpaste="return false" onkeydown="return validNumericInput(event)">
 					</fieldset>
 				</form>
 			</div>
+
+			<div id="footer"><p></p></div>
+
 		</div>
 
 			<script>
@@ -60,6 +67,30 @@
 				var	ajaxResponse;
 				var	secureKeys = apiKeys();
 				var	tableEntry;
+
+
+				/*
+				=============================
+				Dynamically insert script to
+				call Google map initialization
+				function
+				==============================
+				*/
+
+				var mapScript = document.createElement('script');
+
+				mapScript.setAttribute("id", "loadmain");
+
+				mapScript.setAttribute('src', 
+					"https://maps.googleapis.com/maps/api/js?key=" + 
+					secureKeys[0] + "&"  + "callback=initMap");
+
+				mapScript.async = true;
+				mapScript.defer = true;
+
+				document.body.appendChild(mapScript);
+
+				//==============================
 
 				function initMap() {
 
@@ -200,18 +231,20 @@
 
 					google.maps.event.addListener(mainMap, "dragend", function() {
 
+						//removeFromMap(mapMarkers);
+						
 						
 						locationMarker.position = mainMap.getCenter();
 						locationMarker.setMap(mainMap);	
 
 						mapMarkers.push(locationMarker);
 
-						//markerSetPosition();
+						markerSetPosition();
 
 					});
 
 					google.maps.event.addListener(locationMarker, "dragend", function() {
-
+						
 						mainMap.setCenter(locationMarker.getPosition());
 
 					});
@@ -225,8 +258,8 @@
 
 					google.maps.event.addListener(locationMarker, "click", function() {
 
-						removeFromMap(mapMarkers);
-						removeFromMap(searchRadii);
+						//removeFromMap(mapMarkers);
+						//removeFromMap(searchRadii);
 
 						if (document.getElementById('restable')) {
 
@@ -235,7 +268,7 @@
 						}
 
 						if (searchRadii.length !== 0) {
-
+							removeFromMap(mapMarkers);
 							removeFromMap(searchRadii);
 							searchRadii = [];
 
@@ -524,11 +557,10 @@
 
 				function buildResultTable(response) {
 
-					var infoArray = processAjaxResponse(response),
+					var infoArray = processAjaxResponse(response);
 
-						table = document.createElement('table'),
-						tRow,
-						tableProperties; //, tHead, tRow;
+					var table = document.createElement('table');
+					var tableProperties;
 
 					document.getElementById('datatable').appendChild(table);
 
@@ -604,7 +636,7 @@
 					var headLen = headKeys.length;
 
 					switch (type) {
-						//Modify CSS to ensure header row in fixed position while scrolling
+						
 						case 'head':
 
 							var i; 
@@ -824,10 +856,6 @@
 			</script>
 
 			<script src='locator.js?onload=initialize'></script>
-
-			<script async defer
-				src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-			></script>
 
 	</body>
 

@@ -55,7 +55,7 @@ a:visited {
 
 /* 
   =========================
-  Title bar
+  Title bar & Page Logo
   =========================	
 */
 
@@ -65,9 +65,39 @@ a:visited {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 80px;
-	background-color: #0c0;
+	height: 125px;
+	background-color: #0A0;
 	z-index: 9999;
+}
+
+#logo {
+
+	position: fixed;
+	top: 2px;
+	left: 5px;
+
+}
+
+h1 {
+
+	position: absolute;
+	display: inline-block;
+	margin-left: 120px;
+	color: #C00;
+	font-family: Trebuchet, Helvetica, Arial, sans-serif;
+	font-style: italic;
+}
+
+h5 {
+
+	position: absolute;
+	display: inline-block;
+	text-align: center;
+	margin-left: 140px;
+	margin-top: 65px;
+	color: #EDFA00;
+	font-family: Trebuchet, Helvetica, Arial, sans-serif;
+	font-style: italic;
 }
 
 /* 
@@ -79,10 +109,10 @@ a:visited {
 #map {
 
 	position: relative;
-	width: 540px;
+	width: 600px;
 	height: 500px;
-	margin-top: 120px;
-
+	margin-top: 160px;
+	border: 5px double #0A0;
 }
 
 /* 
@@ -104,12 +134,12 @@ table {
 
 	position: relative;
 	/*float: right;*/
-	height: 700px;
+	height: 670px;
 	width: 1090px;
 	overflow-y: auto;
 	left: 700px;
-	top: -500px;
-
+	top: -525px;
+	border: 5px double #0A0;
 }
 
 /* 
@@ -167,11 +197,11 @@ table {
   =========================
   */
 
-
 form {
 
 	width: 325px;
-	margin-top: -690px;
+	margin-top: -650px;
+	margin-left: 20px;
 }
 
 form fieldset {
@@ -179,7 +209,6 @@ form fieldset {
 	width: 300px;
 	background-color: #C2C9CC;
 	border-radius: 5px;
-
 
 }
 
@@ -221,7 +250,7 @@ input {
 #radius form {
 
 	width: 205px;
-	margin-left: 330px;
+	margin-left: 350px;
 	margin-bottom: 50px;
 	margin-top: -99px;
 }
@@ -236,4 +265,29 @@ input {
 	/*clear: both;*/
 	top: 71%;
 
+}
+
+/* 
+  =========================
+  Footer bar
+  =========================	
+*/
+
+#footer {
+
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	background-color: #A00;
+	z-index: 9998;
+
+}
+
+#footer p {
+
+	text-align: center;
+	font: bold 10px Arial, Helvetica, sans-serif;
+	color: #FFF;
 }
