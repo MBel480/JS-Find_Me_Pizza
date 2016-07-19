@@ -83,7 +83,7 @@
 
 				mapScript.setAttribute('src', 
 					"https://maps.googleapis.com/maps/api/js?key=" + 
-					secureKeys[0] + "&"  + "callback=initMap");
+					secureKeys[0] + "&callback=initMap");
 
 				mapScript.async = true;
 				mapScript.defer = true;
@@ -696,7 +696,7 @@
 							var	infoLen = info.length;
 							var keyName;
 							var	row;
-								
+							var mapWindow = [];
 
 							for (i = 0; i < infoLen; i++) {
 
@@ -727,12 +727,53 @@
 												var lat2 = info[i].latitude;
 												var lng2 = info[i].longitude;
 
-												mapMarkers.push(new google.maps.Marker({
+												/*
+												========================================
+												Map marker information box functionality.
+												Box consists of business name and hours
+												(if available)
+												========================================
+												*/
+
+												var boxTitle = '<h2 id="boxtitle">' + info[i].name + '</h2>';
+
+												if (info[i].hasOwnProperty('hours_display')) {
+
+													var businessHours = info[i].hours_display;
+													businessHours = businessHours.split(';');
+													businessHours = businessHours.join('</br>');
+
+													mapWindow[i] = new google.maps.InfoWindow({
+														content: boxTitle + '</br>' + '<div id="hours">' 
+																+ businessHours + '</div>'
+													});
+
+												}else {
+
+													mapWindow[i] = new google.maps.InfoWindow({
+														content: boxTitle + '</br></br>' + 'NA'
+													});
+
+												}
+
+												mapMarkers[i] = new google.maps.Marker({
 													map: mainMap,
 													icon: "pizza.png",
 													position: new google.maps.LatLng(lat2, lng2),
 													title: info[i].name
-												}));
+												});
+
+												google.maps.event.addListener(mapMarkers[i],'mouseover', function(refKey) {
+													return function() {
+														mapWindow[refKey].open(mainMap, mapMarkers[refKey]);
+													}
+												}(i));
+
+												google.maps.event.addListener(mapMarkers[i],'mouseout', function(refKey) {
+													return function() {
+														mapWindow[refKey].close(mainMap, mapMarkers[refKey]);
+													}
+												}(i));
 
 												var gcDistance = greatCircleDistance(lat1, lng1, lat2, lng2);
 

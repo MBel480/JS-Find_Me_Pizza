@@ -117,6 +117,26 @@ h5 {
 
 /* 
   =========================
+  Map submarker information
+  box contents
+  =========================	
+*/
+
+#boxtitle {
+
+	font-family: Trebuchet, Helvetica, Arial, sans-serif;
+	font-style: bold;
+	color: #3292B3;
+}
+
+#hours {
+
+	font: bold 14px Times, Helvetica, Arial, sans-serif; 
+
+}
+
+/* 
+  =========================
   Restaurant data table
   container
   =========================	
@@ -169,7 +189,6 @@ table {
 
 	width: 150px;
 	overflow: hidden;
-	/*word-wrap: break-word;*/
 	border-color: red;
 	font: bold 14px Arial, Helvetica, sans-serif;
 	color: green;
@@ -258,11 +277,9 @@ input {
 #radius fieldset{
 
 	position: relative;
-	/*float: left;*/
 	width: 50px;
 	background-color: #C2C9CC;
 	border-radius: 5px;
-	/*clear: both;*/
 	top: 71%;
 
 }
