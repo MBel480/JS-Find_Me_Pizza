@@ -305,6 +305,32 @@ input {
 #footer p {
 
 	text-align: center;
-	font: bold 10px Arial, Helvetica, sans-serif;
+	font: bold 14px Arial, Helvetica, sans-serif;
 	color: #FFF;
+}
+
+#footmsg {
+
+	font-size: 16px;
+
+}
+
+/* 
+  =========================
+  Footer bar link
+  =========================	
+*/
+
+#footer a {
+
+	color: yellow;
+	text-decoration: none;
+
+}
+
+#footer a:hover {
+
+	text-decoration: none;
+	color: green;
+
 }

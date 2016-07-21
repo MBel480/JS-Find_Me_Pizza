@@ -46,29 +46,46 @@
 					<fieldset>
 						<label>Search Radius (miles)</label>
 						<input type="number" value="1" id="rad_input"
-						min="0" max="14" step="0.1"
+						min="0" max="6" step="0.1"
 						onpaste="return false" onkeydown="return validNumericInput(event)">
 					</fieldset>
 				</form>
 			</div>
 
-			<div id="footer"><p></p></div>
+			<div id="footer">
+				<p>
+					<span id="footmsg">DISCLAIMER:</span>
+					Data is provided as is, according to the most up-to-date data from Factual.com.</br>
+					The Factual.com API provides location information from 50 supported countries.
+					
+					See <a target="_blank" href="http://developer.factual.com/working-with-factual-places/">
+					developer.factual.com/working-with-factual-places/</a> 
+					for details. 
+				</p>
+			</div>
 
 		</div>
 
 			<script>
 
-				var mainMap;
-				var	earthR = 6371;  //Mean radius of Earth (km)
-				var	mapMarkers = [];
-				var	searchRadii = [];
-				var factualMaxRadius = 14;
-				var	coordDecimals = 7;
-				var distDecimals = 3;
-				var	ajaxResponse;
-				var	secureKeys = apiKeys();
-				var	tableEntry;
+				/*
+				=============================
+				Initialize main variables
+				==============================
+				*/
 
+				var mainMap;				 //Main Google map variable
+				var	earthR = 6371;  		 //Mean radius of Earth (km)
+				var	mapMarkers = [];		 //Store primary and secondary map markers
+				var	searchRadii = [];		 //Store search radius circle
+				var factualMaxRadius = "6";  //Maximum user-specified search radius for use with Factual.com API
+				var	coordDecimals = 7;		 //Number of Map and Marker Lat & Lng decimal places
+				var distDecimals = 3;		 //Number of calculated distance decimal places
+				var	ajaxResponse;			 //Variable to store Ajax call response from Factual.com API 	
+				var	secureKeys = apiKeys();	 //Store Google Javascript API and Factual.com API keys
+				var	tableEntry;				 //Variable used in constructing page results table
+
+				var isChrome = /chrome/i.test(navigator.userAgent);
 
 				/*
 				=============================
@@ -134,7 +151,9 @@
 		
 					};
 
-					var geoCodeInfo = new google.maps.Geocoder;
+
+					//Geocoder used later for country code extraction
+					var geoCodeInfo = new google.maps.Geocoder;	
 
 					mainMap = new google.maps.Map(mapDiv, mapOptions);
 
@@ -273,7 +292,7 @@
 
 						var currentSearchRadius = getElement("id", "rad_input");
 
-						if (currentSearchRadius === 0) {
+						if (currentSearchRadius === "0") {
 
 							setElement("id", "rad_input", "1");
 
@@ -346,6 +365,7 @@
 
 							}
 
+							//Country code (if exists) used to retrieve location data from Factual.com API
 							if (countryCode) {
 
 								factualParams = [countryCode, geoLatLng.lat, geoLatLng.lng, factualRadius];
@@ -361,7 +381,7 @@
 					});
 
 					/*
-					============================
+					==============================
 					Center map using geolocation 
 					(if supported by browser)
 					==============================
@@ -375,18 +395,31 @@
 
 					if (navigator.geolocation) {
 
-						navigator.geolocation.getCurrentPosition(showPosition);
-
-					}else {
-
-					
-						alert("Geolocation is not supported by your browser.");
+						navigator.geolocation.getCurrentPosition(showPosition, handleGeolocateError);
 
 					}
 
 				};
 
+				function handleGeolocateError(errCode) {
+
+					/*
+					==============================
+					Error Codes:
+
+					1 - Permission denied by user
+					2 - Position unavailable
+					3 - Network timeout
+					============================== 
+					*/
+					
+					alert('ERROR(' + errCode.code + '): ' + errCode.message);				
+
+				};
+
 				function showPosition(position) {
+
+					//Snap primary map marker to user's location
 
 					var presentLocation = new google.maps.LatLng(position.coords.latitude,
 						position.coords.longitude);
