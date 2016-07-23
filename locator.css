@@ -19,22 +19,22 @@ html, body {
 
 a {
 
-	color: blue;
+	color: #9CF;
 	text-decoration: none;
 
 }
 
 a:hover {
 
-	text-decoration: none;
-	color: orange;
+	text-decoration: inherit;
+	color: #0F0;
 
 }
 
 a:visited {
 
-	text-decoration: none;
-	color: maroon;
+	text-decoration: inherit;
+	color: #F66;
 }
 
 /* 
@@ -115,6 +115,24 @@ h5 {
 	border: 5px double #0A0;
 }
 
+#searchbar {
+
+	position: fixed;
+	display: inline-block;
+	z-index: 5;
+	margin-top: -500px;
+	margin-left: 120px;
+	background-color: #414A58;
+	border: 1px solid #999;
+	padding: 5px;
+	text-align: center;
+}
+
+#address {
+
+	width: 250px;
+}
+
 /* 
   =========================
   Map submarker information
@@ -153,7 +171,6 @@ table {
 #datatable {
 
 	position: relative;
-	/*float: right;*/
 	height: 670px;
 	width: 1090px;
 	overflow-y: auto;
@@ -173,7 +190,7 @@ table {
 #restable {
 
 	overflow: scroll;
-	background-color: #C2C9CC;
+	background-color: #414A58;
 
 }
 
@@ -181,7 +198,7 @@ table {
 
 	border-color: red;
 	font: bold 16px Arial, Helvetica, sans-serif;
-	color: black;
+	color: #0E0;
 	width: 150px;
 }
 
@@ -191,7 +208,7 @@ table {
 	overflow: hidden;
 	border-color: red;
 	font: bold 14px Arial, Helvetica, sans-serif;
-	color: green;
+	color: yellow;
 	text-align: center;
 }
 
@@ -216,42 +233,37 @@ table {
   =========================
   */
 
-form {
+ #viewcoords {
 
-	width: 325px;
-	margin-top: -650px;
-	margin-left: 20px;
-}
+  	margin-top: -660px;
+  	width: 335px;
+  	background-color: #414A58;
+  	border-radius: 5px;
 
-form fieldset {
+  }
 
-	width: 300px;
-	background-color: #C2C9CC;
-	border-radius: 5px;
-
-}
-
-label {
+#viewcoords label {
 
 	display: inline-block;
 	float: left;
 	clear: left;
-	width: 180px;
+	width: 195px;
 	text-align: left;
 	padding-bottom: 10px;
-	color: red;
-	font: bold 14px Arial, Helvetica, sans-serif;
+	color: yellow;
+	font: bold 16px Arial, Helvetica, sans-serif;
 
 }
 
-input {
+#viewcoords input {
 
 	display: inline-block;
 	float: left;
 	width: 100px;
-	font: bold 14px Arial, Helvetica, sans-serif;
+	font: bold 16px Arial, Helvetica, sans-serif;
 	background-color: black;
 	color: white;
+	border-radius: 5px;
 }
 
 
@@ -271,17 +283,33 @@ input {
 	width: 205px;
 	margin-left: 350px;
 	margin-bottom: 50px;
-	margin-top: -99px;
+	margin-top: -105px;
 }
 
 #radius fieldset{
 
 	position: relative;
-	width: 150px;
-	background-color: #C2C9CC;
+	width: 180px;
+	background-color: #414A58;
 	border-radius: 5px;
 	top: 71%;
 
+}
+
+#radius label {
+
+	color: yellow;
+	font: bold 16px Arial, Helvetica, sans-serif;
+	margin-left: 20px;
+}
+
+#radius input {
+
+	font: bold 20px Arial, Helvetica, sans-serif;
+	text-align: center;
+	color: white;
+	background-color: inherit;
+	border-radius: inherit;
 }
 
 /* 

@@ -22,10 +22,15 @@
 
 			<div id="map"></div>
 
+			<div id="searchbar">
+				<input id="address" type="textbox" value="Washington, DC">
+				<input id="search-btn" type="button" value="Search">
+			</div>
+
 			<div id="datatable"></div>
 
 			<div id="latLng">
-				<form action="">
+				<form id="viewcoords" action="">
 					<fieldset>
 
 						<label>Map Latitude (deg):</label>
@@ -42,7 +47,7 @@
 			</div>
 
 			<div id="radius">
-				<form action="">
+				<form id="user_rad" action="">
 					<fieldset>
 						<label>Search Radius (miles)</label>
 						<input type="number" value="1" id="rad_input"
@@ -193,7 +198,47 @@
 					});
 
 					/*
-					============================
+					==============================
+					Search box entry will snap
+					primary map marker to entered
+					location 
+					==============================
+					*/
+
+					var searchGeocoder = new google.maps.Geocoder();
+
+					document.getElementById("search-btn").addEventListener('click', function() {
+
+						addressLatLng(searchGeocoder, mainMap);
+
+					});
+
+					function addressLatLng(geoEntry, primeMap) {
+
+						var searchAddress = getElement("id", "address");
+
+						geoEntry.geocode({'address' : searchAddress}, function(results, status) {
+
+							if (status === google.maps.GeocoderStatus.OK) {
+
+								primeMap.setCenter(results[0].geometry.location);
+
+								locationMarker.position = primeMap.getCenter();
+								locationMarker.setMap(primeMap);
+
+								markerSetPosition();
+							
+							}else {
+
+								alert('Geocoder unsuccessful due to: ' +  status);
+							}
+
+						});
+
+					};
+
+					/*
+					==============================
 					Map center change displays
 					latitude and longitude
 					==============================
