@@ -275,13 +275,14 @@ table {
 
 #radius {
 
-	width: 205px;
+	width: 250px;
+	margin-left: 350px;
+
 }
 
 #radius form {
 
-	width: 205px;
-	margin-left: 350px;
+	width: 250px;
 	margin-bottom: 50px;
 	margin-top: -105px;
 }
