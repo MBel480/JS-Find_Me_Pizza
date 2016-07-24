@@ -31,7 +31,7 @@ a:hover {
 
 }
 
-a:visited {
+a:visited:after {
 
 	text-decoration: inherit;
 	color: #F66;
@@ -72,13 +72,13 @@ a:visited {
 
 #logo {
 
-	position: fixed;
+	position: absolute;
 	top: 2px;
 	left: 5px;
 
 }
 
-h1 {
+#titlebar h1 {
 
 	position: absolute;
 	display: inline-block;
@@ -86,9 +86,10 @@ h1 {
 	color: #C00;
 	font-family: Trebuchet, Helvetica, Arial, sans-serif;
 	font-style: italic;
+	white-space: nowrap;
 }
 
-h5 {
+#titlebar h5 {
 
 	position: absolute;
 	display: inline-block;
@@ -98,6 +99,48 @@ h5 {
 	color: #EDFA00;
 	font-family: Trebuchet, Helvetica, Arial, sans-serif;
 	font-style: italic;
+	white-space: nowrap;
+}
+
+/* 
+  =========================
+  Webpage Instructions
+  =========================	
+*/
+
+#instruct {
+
+	position: fixed;
+	width: 450px;
+	right: 0;
+	height: 110px;
+	border: 5px ridge #ECF26F;
+	margin-top: 3px;
+	margin-right: 5px;
+
+}
+
+#instruct ol {
+
+	margin-top: 30px;
+
+}
+
+#instruct ol li {
+
+	font-size: 15px;
+	font-style: italic;
+	color: yellow;
+
+}
+
+#instruct h5 {
+
+	left: 5px;
+	margin: 0 20px;
+	font-size-adjust: 0.9;
+	text-decoration: underline;
+
 }
 
 /* 
@@ -117,7 +160,7 @@ h5 {
 
 #searchbar {
 
-	position: fixed;
+	position: absolute;
 	display: inline-block;
 	z-index: 5;
 	margin-top: -500px;
@@ -233,14 +276,19 @@ table {
   =========================
   */
 
- #viewcoords {
+#viewcoords {
 
   	margin-top: -660px;
   	width: 335px;
   	background-color: #414A58;
-  	border-radius: 5px;
+  	border-radius: 10px;
 
   }
+
+#viewcoords fieldset {
+
+	border-radius: 10px;
+}
 
 #viewcoords label {
 
@@ -292,7 +340,7 @@ table {
 	position: relative;
 	width: 180px;
 	background-color: #414A58;
-	border-radius: 5px;
+	border-radius: 10px;
 	top: 71%;
 
 }
@@ -315,7 +363,7 @@ table {
 
 /* 
   =========================
-  Footer bar
+  Footer bar and text
   =========================	
 */
 
@@ -336,6 +384,7 @@ table {
 	text-align: center;
 	font: bold 14px Arial, Helvetica, sans-serif;
 	color: #FFF;
+	white-space: nowrap;
 }
 
 #footmsg {
