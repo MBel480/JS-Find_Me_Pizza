@@ -115,14 +115,16 @@ a:visited:after {
 	right: 0;
 	height: 110px;
 	border: 5px ridge #ECF26F;
-	margin-top: 3px;
 	margin-right: 5px;
+	float: right;
+	top: 2px;
+	z-index: 10000;
 
 }
 
 #instruct ol {
 
-	margin-top: 30px;
+	margin-top: 10px;
 
 }
 
@@ -138,8 +140,10 @@ a:visited:after {
 
 	left: 5px;
 	margin: 0 20px;
-	font-size-adjust: 0.9;
 	text-decoration: underline;
+	color: #ECF26F;
+	font: inherit;
+	font-style: italic;
 
 }
 
@@ -151,10 +155,9 @@ a:visited:after {
 
 #map {
 
-	position: relative;
 	width: 600px;
 	height: 500px;
-	margin-top: 160px;
+	margin-top: 150px;
 	border: 5px double #0A0;
 }
 
@@ -169,6 +172,8 @@ a:visited:after {
 	border: 1px solid #999;
 	padding: 5px;
 	text-align: center;
+	white-space: nowrap;
+	
 }
 
 #address {
@@ -218,7 +223,7 @@ table {
 	width: 1090px;
 	overflow-y: auto;
 	left: 700px;
-	top: -525px;
+	top: -510px;
 	border: 5px double #0A0;
 }
 
@@ -385,6 +390,8 @@ table {
 	font: bold 14px Arial, Helvetica, sans-serif;
 	color: #FFF;
 	white-space: nowrap;
+	display: inline-block;
+	margin-left: 445px;
 }
 
 #footmsg {
