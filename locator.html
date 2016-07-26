@@ -212,7 +212,7 @@
 					==============================
 					Search box entry will snap
 					primary map marker to entered
-					location 
+					location using addressLatLng
 					==============================
 					*/
 
@@ -491,6 +491,8 @@
 
 				function markerSetPosition() {
 
+					//Display map center coordinates on main page
+
 					var markerLat = locationMarker.getPosition()
 									.lat().toFixed(coordDecimals);
 					var markerLng = locationMarker.getPosition()
@@ -502,6 +504,8 @@
 				};
 
 				function removeFromMap(itemArray) {
+
+					//Remove all map markers from map
 					
 					var i = 0;
 
@@ -573,6 +577,15 @@
 
 				function ajaxRequest(url, callback) {
 
+					/*
+					========================================
+					Send a data request to server hosting the
+					API of interest.  Cross browser compatibility
+					checks are included, should older browsers
+					be in use (see actxVersions).
+					======================================== 
+					*/
+
 					var xhttpR;
 
 					if (typeof XMLHttpRequest !== 'undefined') {
@@ -588,8 +601,8 @@
 											"Microsoft.XmlHttp"
 											];
 
-						var i,
-							actxArrLen = actxVersions.length;
+						var i;
+						var actxArrLen = actxVersions.length;
 
 						for (i = 0; i < actxArrLen; i++) {
 
@@ -606,13 +619,21 @@
 						}
 					}
 
+					/*
+					========================================
+					Check server readiness to respond to
+					data request.  An "OK" status will invoke
+					the specified callback function to handle
+					the returned data
+					======================================== 
+					*/
+					
 					xhttpR.onreadystatechange = checkReadiness;
 
 					function checkReadiness() {
 
 						/*
 						========================================
-
 						 XMLHttpRequest object readyState properties:
 
 						 0: request not initialized
@@ -654,6 +675,13 @@
 
 				function processAjaxResponse(response) {
 
+					/*
+					========================================
+					Handle returned JSON data from Factual.com
+					API server data request
+					======================================== 
+					*/
+
 					response = JSON.parse(response);
 
 					return response.response.data;
@@ -661,6 +689,8 @@
 				};
 
 				function buildResultTable(response) {
+
+					//Generate location results table on main page
 
 					var infoArray = processAjaxResponse(response);
 
@@ -716,6 +746,8 @@
 
 				function setElement(type, name, value) {
 
+					//Set values of DOM elements to desired value
+
 					switch (type) {
 
 						case "id":
@@ -736,6 +768,8 @@
 
 				function getElement(type, name) {
 
+					//Retrieve DOM element values
+
 					switch (type) {
 
 						case "id":
@@ -755,6 +789,8 @@
 				};
 
 				function tableCells(tableSeg, cellValues, type) {
+
+					//Parse and display results table entries
 
 					var headers = cellValues[0];
 					var headKeys = Object.keys(cellValues[0]);
@@ -890,6 +926,12 @@
 													title: info[i].name
 												});
 
+												/*
+												========================================
+												Closures necessary to ensure an infowindow
+												is associated with its intended map marker. 
+												======================================== 
+												*/
 												google.maps.event.addListener(mapMarkers[i],'mouseover', function(refKey) {
 													return function() {
 														mapWindow[refKey].open(mainMap, mapMarkers[refKey]);
@@ -929,6 +971,13 @@
 				};
 
 				function apiEncodeUrl(type, params) {
+
+					/*
+					========================================
+					Properly encode special characters in
+					url used to make API calls
+					======================================== 
+					*/
 
 					var first,        country,   
 						filter,       category,  
