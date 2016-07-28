@@ -294,7 +294,7 @@ function initMap() {
 
 			setElement("id", "rad_input", "1");
 
-		}else if (currentSearchRadius > factualMaxRadius) {
+		}else if (Number(currentSearchRadius) > Number(factualMaxRadius) {
 
 			setElement("id", "rad_input", factualMaxRadius);
 
