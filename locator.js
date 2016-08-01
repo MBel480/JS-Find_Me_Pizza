@@ -804,6 +804,7 @@ function tableCells(tableSeg, cellValues, type) {
 			for (i = 0; i < infoLen; i++) {
 
 				row = tableSeg.insertRow(i);
+				setElementAttributes(row, {"id" : String(i)});
 
 				for (j = 0; j < headLen; j++) {
 
@@ -874,16 +875,19 @@ function tableCells(tableSeg, cellValues, type) {
 								is associated with its intended map marker. 
 								======================================== 
 								*/
-								google.maps.event.addListener(mapMarkers[i],'mouseover', function(refKey) {
+								google.maps.event.addListener(mapMarkers[i], 'mouseover', function(refKey) {
 									return function() {
 										mapWindow[refKey].open(mainMap, mapMarkers[refKey]);
-									}
+										document.getElementById(String(refKey)).scrollIntoView(true);
+										document.getElementById(String(refKey)).style.backgroundColor = "#0B0";
+									};
 								}(i));
 
-								google.maps.event.addListener(mapMarkers[i],'mouseout', function(refKey) {
+								google.maps.event.addListener(mapMarkers[i], 'mouseout', function(refKey) {
 									return function() {
 										mapWindow[refKey].close(mainMap, mapMarkers[refKey]);
-									}
+										document.getElementById(String(refKey)).removeAttribute("style");
+									};
 								}(i));
 
 								var gcDistance = greatCircleDistance(lat1, lng1, lat2, lng2);
@@ -944,7 +948,7 @@ function apiEncodeUrl(type, params) {
 
 		case 'factual':
 
-			first = 'http://api.v3.factual.com/t/places-',
+			first = 'https://crossorigin.me/http://api.v3.factual.com/t/places-',
 			country = params[0],
 			filter = '?filters=',
 			category = '{"category_ids":{"$includes":363}}',

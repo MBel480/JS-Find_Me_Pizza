@@ -74,30 +74,12 @@ a:hover {
 
 }
 
-#titlebar h1 {
+#decor {
 
-	position: absolute;
 	display: inline-block;
-	margin-left: 120px;
-	color: #C00;
-	font-family: Trebuchet, Helvetica, Arial, sans-serif;
-	font-style: italic;
-	white-space: nowrap;
-
-}
-
-#titlebar h5 {
-
-	position: absolute;
-	display: inline-block;
-	text-align: center;
-	margin-left: 140px;
-	margin-top: 65px;
-	color: #EDFA00;
-	font-family: Trebuchet, Helvetica, Arial, sans-serif;
-	font-style: italic;
-	white-space: nowrap;
-
+	position: fixed;
+	margin-left: 750px;
+	margin-top: 10px;
 }
 
 /* 
@@ -122,7 +104,7 @@ a:hover {
 
 #instruct ol {
 
-	margin-top: 10px;
+	margin-top: 1px;
 
 }
 
@@ -171,8 +153,8 @@ a:hover {
 	position: absolute;
 	display: inline-block;
 	z-index: 5;
-	margin-top: -500px;
-	margin-left: 120px;
+	margin-top: -495px;
+	margin-left: 130px;
 	background-color: #414A58;
 	border: 1px solid #999;
 	padding: 5px;
@@ -356,7 +338,7 @@ table {
 #radius fieldset{
 
 	position: relative;
-	width: 180px;
+	width: 200px;
 	background-color: #414A58;
 	border-radius: 10px;
 	top: 71%;
@@ -378,7 +360,8 @@ table {
 	color: white;
 	background-color: inherit;
 	border-radius: inherit;
-
+	width: 150px;
+	margin-left: 25px;
 }
 
 /* 
