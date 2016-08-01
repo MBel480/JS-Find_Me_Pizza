@@ -410,8 +410,29 @@ function handleGeolocateError(errCode) {
 	3 - Network timeout
 	============================== 
 	*/
+
+	var err;
+
+	switch (errCode.code) {
+
+		case 1:
+
+			err = "Geolocation blocked by user."
+			break;
+
+		case 2:
+
+			err = "Geolcation service currently unavailable."
+			break;
+
+		case 3:
+
+			err = "Geolocation prevented due to network timeout."
+			break;
+
+	}
 	
-	alert('ERROR(' + errCode.code + '): ' + errCode.message);				
+	alert('ERROR(' + errCode.code + '): ' + errCode.message + ".\n" + err);				
 
 };
 
