@@ -212,7 +212,7 @@ function initMap() {
 				map: mainMap,
 				draggable: true,
 				position: mainMap.getCenter(),
-				icon: "http://maps.google.com/mapfiles/kml/pal3/icon20.png"
+				icon: "https://maps.google.com/mapfiles/kml/pal3/icon20.png"
 			});
 
 	mapMarkers.push(locationMarker);

@@ -90,15 +90,12 @@ a:hover {
 
 #instruct {
 
-	position: fixed;
+	position: inherit;
 	width: 450px;
 	right: 0;
 	height: 110px;
 	border: 5px ridge #ECF26F;
-	margin-right: 5px;
-	float: right;
 	top: 2px;
-	z-index: 10000;
 
 }
 
@@ -357,7 +354,7 @@ table {
 
 	font: bold 20px Arial, Helvetica, sans-serif;
 	text-align: center;
-	color: white;
+	color: yellow;
 	background-color: inherit;
 	border-radius: inherit;
 	width: 150px;
