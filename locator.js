@@ -41,18 +41,6 @@ document.body.appendChild(mapScript);
 function initMap() {
 
 	/*
-	=============================
-	Valid world map coordinate system 
-	bounds (SW corner, NE corner)
-	==============================
-	*/
-
-	var worldBounds = new google.maps.LatLngBounds(
-		new google.maps.LatLng(85, -180),
-		new google.maps.LatLng(-85, 180)
-	);
-
-	/*
 	==============================
 	Map centered on Washington, D.C.
 	with main map controls active
@@ -87,6 +75,18 @@ function initMap() {
 
 	setElement("id", "lat", mapOptions.center.lat());
 	setElement("id", "lng", mapOptions.center.lng());
+
+	/*
+	=============================
+	Valid world map coordinate system 
+	bounds (SW corner, NE corner)
+	==============================
+	*/
+
+	var worldBounds = new google.maps.LatLngBounds(
+		new google.maps.LatLng(85, -180),
+		new google.maps.LatLng(-85, 180)
+	);
 
 	/*
 	============================
@@ -174,6 +174,8 @@ function initMap() {
 				locationMarker.setMap(primeMap);
 
 				markerSetPosition();
+
+				google.maps.event.trigger(locationMarker, 'click');
 			
 			}else {
 
@@ -266,8 +268,10 @@ function initMap() {
 
 	/*
 	============================
-	Marker terminal position displays
-	search radius
+	Primary map marker click event 
+	displays search radius circle
+	and initiates AJAX request to
+	Factual.com API
 	==============================
 	*/
 
@@ -279,14 +283,12 @@ function initMap() {
 
 		}
 
-		if (searchRadii.length !== 0) {
-			removeFromMap(mapMarkers);
-			removeFromMap(searchRadii);
-			searchRadii = [];
+		removeFromMap(mapMarkers);
+		removeFromMap(searchRadii);
 
-		}
+		searchRadii = [];
 
-		//Reinforce search radius numeric limits
+		//Enforce search radius numeric limits
 
 		var currentSearchRadius = getElement("id", "rad_input");
 
@@ -454,7 +456,7 @@ function showPosition(position) {
 
 function markerSetPosition() {
 
-	//Display map center coordinates on main page
+	//Display marker coordinates on main page
 
 	var markerLat = locationMarker.getPosition()
 					.lat().toFixed(coordDecimals);
@@ -470,13 +472,14 @@ function removeFromMap(itemArray) {
 
 	//Remove all map markers from map
 	
-	var i = 0;
+	var i;
 
 	for (i = 0; i < itemArray.length; i++) {
 
 		itemArray[i].setMap(null);
 
 	}
+
 };
 
 function milesToMeters(radius) {
