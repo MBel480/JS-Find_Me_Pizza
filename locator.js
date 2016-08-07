@@ -369,7 +369,7 @@ function initMap() {
 			if (countryCode) {
 
 				factualParams = [countryCode, geoLatLng.lat, geoLatLng.lng, factualRadius];
-				factualUrl = apiEncodeUrl('factual', factualParams);
+				factualUrl = apiEncodeUrl(factualParams);
 				ajaxRequest(factualUrl, buildResultTable);
 			}
 
@@ -940,58 +940,42 @@ function tableCells(tableSeg, cellValues, type) {
 
 };
 
-function apiEncodeUrl(type, params) {
+function apiEncodeUrl(params) {
 
 	/*
 	========================================
 	Properly encode special characters in
-	url used to make API calls
+	url used to make API calls.  Utilize
+	Cross Origin Resource Sharing (CORS)
+	proxy (crossorigin.me) to prevent call
+	to Factual.com API from being blocked by
+	browser.
 	======================================== 
 	*/
 
 	var first,        country,   
 		filter,       category,  
 		geo,          radius,    
-		resultLimit,  googleKey, 
-		factualKey,   urlParts;
+		resultLimit,  factualKey,   
+		urlParts;
 
-	switch (type) {
+	first = 'https://crossorigin.me/http://api.v3.factual.com/t/places-',
+	country = params[0],
+	filter = '?filters=',
+	category = '{"category_ids":{"$includes":363}}',
 
-		case 'google':
+	geo = '&geo={"$circle":{"$center":[' + params[1] + ',' +
+		   params[2] + '],',
 
-			first = 'https://maps.googleapis.com',
-			filter = '/maps/api/geocode/json?',
-			geo = 'latlng=' + params[1] + ',' + params[2],
-			googleKey = '&key=' + secureKeys[0];
+	radius = '"$meters"' +  ':' +  params[3] + '}}',
+	resultLimit = '&limit=50',
+	factualKey = '&KEY=' + secureKeys[1];
 
-			urlParts = [first, filter,
-						geo,   googleKey
-					   ];
-
-		break;
-
-		case 'factual':
-
-			first = 'https://crossorigin.me/http://api.v3.factual.com/t/places-',
-			country = params[0],
-			filter = '?filters=',
-			category = '{"category_ids":{"$includes":363}}',
-
-			geo = '&geo={"$circle":{"$center":[' + params[1] + ',' +
-				   params[2] + '],',
-
-			radius = '"$meters"' +  ':' +  params[3] + '}}',
-			resultLimit = '&limit=50',
-			factualKey = '&KEY=' + secureKeys[1];
-
-			urlParts = [first,       country, 
-						filter,      category, 
-						geo,         radius,
-						resultLimit, factualKey
-					   ];
-
-		break;
-	}
+	urlParts = [first,       country, 
+				filter,      category, 
+				geo,         radius,
+				resultLimit, factualKey
+			   ];
 
 	return encodeURI(urlParts.join(''));
 

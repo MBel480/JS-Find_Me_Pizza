@@ -1,9 +1,8 @@
 function apiKeys() {
 
-	var googleKey = 'Insert Google Javascript API key here';
+	var googleKey = 'AIzaSyCEDTSTEscINZcTCHxBKhAr1gB0XE46ewU';
 
-	var factualKey = 'Insert Factual.com API key here';
+	var factualKey = 'BA4XKBBximlDkSNkADPAmQ2RfCljY91T2MWITRAZ';
 
 	return [googleKey, factualKey];
-
 };
